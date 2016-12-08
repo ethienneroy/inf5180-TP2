@@ -102,8 +102,8 @@ CREATE TABLE Chirurgie (
     IdType INTEGER,
     IdSalle INTEGER,
     DateChirurgie DATE,
-    HeureDebut TIME,
-    HeureFin TIME,
+    HeureDebut DATE,
+    HeureFin DATE,
     CONSTRAINT chirurgie_pk PRIMARY KEY(IdChirurgie),
     CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
     CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
