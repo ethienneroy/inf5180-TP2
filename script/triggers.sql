@@ -93,8 +93,19 @@ END;
 
 
 
--- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur), 
+-- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
+
 -- nbrConsultation (nombre total de consultations pour un patient),
+CREATE OR REPLACE TRIGGER nbrConsultation_patient
+AFTER UPDATE OR INSERT ON Consultation
+FOR EACH ROW
+BEGIN
+  UPDATE DossierPatient
+  set nbrConsultation =(SELECT COUNT(*) FROM Consultation
+                        WHERE Consultation._NumDos = :NEW._NumDos)
+END;
+/
+
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
 
 -- ****************************************************************************
