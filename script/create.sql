@@ -97,6 +97,12 @@ CREATE TABLE TypeChirurgie (
     CONSTRAINT typeChirurgie_pk PRIMARY KEY(IdType)
 )
 /
+CREATE TABLE Salle (
+    IdSalle INTEGER,
+    Nom VARCHAR(20),
+    CONSTRAINT salle_pk PRIMARY KEY(IdSalle)
+)
+/
 CREATE TABLE Chirurgie (
     IdChirurgie INTEGER,
     IdType INTEGER,
@@ -116,12 +122,6 @@ CREATE TABLE OrdonnanceChirurgie (
 	CONSTRAINT ordonnanceChirurgie_pk PRIMARY KEY (NumOrd, IdChir),
 	CONSTRAINT ordonChirurgie_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance,
 	CONSTRAINT ordoChirurgie_chirurgie_fk FOREIGN KEY(IdChir) REFERENCES Chirurgie
-)
-/
-CREATE TABLE Salle (
-	IdSalle INTEGER,
-	Nom VARCHAR(20),
-	CONSTRAINT salle_pk PRIMARY KEY(IdSalle)
 )
 /
 CREATE TABLE SpecialisationsSalle (
