@@ -25,7 +25,7 @@ SET ECHO ON
 -- BEFORE INSERT OR UPDATE ON Chirurgie
 -- FOR EACH ROW
 -- DECLARE
--- selection tous les lignes qvec meme _IdSalle et meme DateChirurgie
+-- selection tous les lignes qvec meme IdSalle et meme DateChirurgie
 -- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
 -- OR :NEW.HeureFin > HeureDebut AND :NEW.HeureFin < HeureFin
 -- BEGIN
@@ -87,13 +87,13 @@ END;
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
 -- CREATE OR REPLACE TRIGGER nbrPatients_docteur
--- BEFORE UPDATE OR INSERT OF _Matricule ON DossierPatient
+-- BEFORE UPDATE OR INSERT OF Matricule ON DossierPatient
 -- FOR EACH ROW
 -- BEGIN
 
 
 
--- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur), 
+-- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 -- nbrConsultation (nombre total de consultations pour un patient),
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
 

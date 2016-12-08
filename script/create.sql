@@ -18,132 +18,132 @@ SET ECHO ON;
 
 
 CREATE TABLE DossierPatient (
-    _NumDos INTEGER,
+    NumDos INTEGER,
     NomP VARCHAR(20),
     PrenomP VARCHAR(20),
     Sexe VARCHAR(1),
     NumAS VARCHAR(12),
     DateNaiss DATE,
     DateC Date,
-    _Matricule INTEGER,
+    Matricule INTEGER,
     NbrConsultation INTEGER,
-    CONSTRAINT dossierPatient_pk PRIMARY KEY(_NumDos),
-    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(_Matricule) REFERENCES(Docteur),
+    CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
+    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES(Docteur),
     CONSTRAINT numAS_unique UNIQUE(NumAs)
 )
 /
 CREATE TABLE Categorie (
-    _IdCategorie INTEGER,
+    IdCategorie INTEGER,
     Nom VARCHAR(20),
     Descritption VARCHAR(100),
-    CONSTRAINT categorie_pk PRIMARY KEY(_IdCategorie)
+    CONSTRAINT categorie_pk PRIMARY KEY(IdCategorie)
 )
 /
 CREATE TABLE Specialite (
-    _Code INTEGER,
+    Code INTEGER,
     Titre VARCHAR(20),
     Descritption VARCHAR(50),
-    CONSTRAINT specialiste_pk PRIMARY KEY(_Code)
+    CONSTRAINT specialiste_pk PRIMARY KEY(Code)
 )
 /
 CREATE TABLE Medicament (
-    _IdMed INTEGER,
+    IdMed INTEGER,
     NomMed VARCHAR(20),
     Prix NUMBER(6),
-    _IdCategorie INTEGER,
-    CONSTRAINT medicament_pk PRIMARY KEY(_IdMed),
-    CONSTRAINT medicament__categorie_fk FOREIGN KEY(_IdCategorie) REFERENCES Categorie
+    IdCategorie INTEGER,
+    CONSTRAINT medicament_pk PRIMARY KEY(IdMed),
+    CONSTRAINT medicament__categorie_fk FOREIGN KEY(IdCategorie) REFERENCES Categorie
 )
 /
 CREATE TABLE Docteur (
-    _Matricule INTEGER,
+    Matricule INTEGER,
     NomM VARCHAR(20),
     PrenomM VARCHAR(20),
-    _Specialite INTEGER,
+    Specialite INTEGER,
     Ville VARCHAR(25),
     Adresse VARCHAR(200),
     Niveau VARCHAR(25),
     NbrPatients INTEGER,
     NbrMoyenMedicaments NUMBER(6),
-    CONSTRAINT docteur_pk PRIMARY KEY(_Matricule),
-    CONSTRAINT docteur_specialite_fk FOREIGN KEY(_Specialite) REFERENCES Specialite
+    CONSTRAINT docteur_pk PRIMARY KEY(Matricule),
+    CONSTRAINT docteur_specialite_fk FOREIGN KEY(Specialite) REFERENCES Specialite
 )
 /
 CREATE TABLE Consultation (
-	_CodeDocteur INTEGER,
-	_NumDos INTEGER,
-	_DateC DATE,
+	CodeDocteur INTEGER,
+	NumDos INTEGER,
+	DateC DATE,
 	Diagnostic VARCHAR(200),
-	_NumOrd INTEGER,
-	CONSTRAINT consultation_pk PRIMARY KEY(_CodeDocteur, _NumDos, _DateC),
-	CONSTRAINT consultation_docteur_fk FOREIGN KEY(_CodeDocteur) REFERENCES Docteur,
-	CONSTRAINT consultation_patient_fk FOREIGN KEY(_NumDos) REFERENCES DossierPatient,
-	CONSTRAINT consultation_ordonnance_fk FOREIGN KEY(_NumOrd) REFERENCES Ordonnance
+	NumOrd INTEGER,
+	CONSTRAINT consultation_pk PRIMARY KEY(CodeDocteur, NumDos, DateC),
+	CONSTRAINT consultation_docteur_fk FOREIGN KEY(CodeDocteur) REFERENCES Docteur,
+	CONSTRAINT consultation_patient_fk FOREIGN KEY(NumDos) REFERENCES DossierPatient,
+	CONSTRAINT consultation_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 /
 CREATE TABLE Ordonnance (
-	_NumOrd INTEGER,
+	NumOrd INTEGER,
 	Recommandantions VARCHAR(200),
 	Type VARCHAR(20),
 	DateC DATE,
 	NbrMedicaments NUMBER(5),
-	CONSTRAINT ordonnance_pk PRIMARY KEY(_NumOrd)
+	CONSTRAINT ordonnance_pk PRIMARY KEY(NumOrd)
 )
 /
 CREATE TABLE OrdonnanceChirurgie (
-	_NumOrd INTEGER,
-	_IdChir INTEGER,
+	NumOrd INTEGER,
+	IdChir INTEGER,
 	Rang INTEGER, -- A VERIFIER DANS LE TP1
-	CONSTRAINT ordonnanceChirurgie_pk PRIMARY KEY (_NumOrd, _IdChir),
-	CONSTRAINT ordonnanceChirurgie_ordonnance_fk FOREIGN KEY(_NumOrd) REFERENCES Ordonnance,
-	CONSTRAINT ordonnanceChirurgie_chirurgie_fk FOREIGN KEY(_IdChir) REFERENCES Chirurgie
+	CONSTRAINT ordonnanceChirurgie_pk PRIMARY KEY (NumOrd, IdChir),
+	CONSTRAINT ordonnanceChirurgie_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance,
+	CONSTRAINT ordonnanceChirurgie_chirurgie_fk FOREIGN KEY(IdChir) REFERENCES Chirurgie
 )
 /
 CREATE TABLE Salle (
-	_IdSalle INTEGER,
+	IdSalle INTEGER,
 	Nom VARCHAR(20),
-	CONSTRAINT salle_pk PRIMARY KEY(_IdSalle)
+	CONSTRAINT salle_pk PRIMARY KEY(IdSalle)
 )
 /
 CREATE TABLE SpecialisationsSalle (
-	_IdType INTEGER,
-	_IdSalle INTEGER,
+	IdType INTEGER,
+	IdSalle INTEGER,
 	DateC DATE,
-	CONSTRAINT spcialisationSalle_pk PRIMARY KEY(_IdSalle, _IdType),
-	CONSTRAINT spcialisationSalle_typeChirurgie_fk FOREIGN KEY(_IdType) REFERENCES TypeChirurgie,
-	CONSTRAINT spcialisationSalle_salle_fk FOREIGN KEY(_IdSalle) REFERENCES Salle
+	CONSTRAINT spcialisationSalle_pk PRIMARY KEY(IdSalle, IdType),
+	CONSTRAINT spcialisationSalle_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
+	CONSTRAINT spcialisationSalle_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
 CREATE TABLE TypeChirurgie (
-	_IdType INTEGER,
+	IdType INTEGER,
 	Nom VARCHAR(20),
 	Descritption VARCHAR(30),
-	CONSTRAINT typeChirurgie_pk PRIMARY KEY(_IdType)
+	CONSTRAINT typeChirurgie_pk PRIMARY KEY(IdType)
 )
 /
 CREATE TABLE OrdonnanceMedicaments (
-	_NumOrd INTEGER,
-	_IdMed INTEGER,
+	NumOrd INTEGER,
+	IdMed INTEGER,
 	NbBoites NUMBER(5),
-	CONSTRAINT ordonnanceMedicaments_pk PRIMARY KEY(_NumOrd, _IdMed),
-	CONSTRAINT ordonnanceMedicaments_medicament_fk FOREIGN KEY(_IdMed) REFERENCES Medicament,
-	CONSTRAINT ordonnanceMedicaments_ordonnance_fk FOREIGN KEY(_NumOrd) REFERENCES Ordonnance
+	CONSTRAINT ordonnanceMedicaments_pk PRIMARY KEY(NumOrd, IdMed),
+	CONSTRAINT ordonnanceMedicaments_medicament_fk FOREIGN KEY(IdMed) REFERENCES Medicament,
+	CONSTRAINT ordonnanceMedicaments_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 
 CREAT TABLE Chirurgie (
-    _IdChirurgie INTEGER,
-    _IdType INTEGER,
-    _IdSalle INTEGER,
+    IdChirurgie INTEGER,
+    IdType INTEGER,
+    IdSalle INTEGER,
     DateChirurgie DATE,
     HeureDebut TIME,
     HeureFin TIME,
-    CONSTRAINT chirurgie_pk PRIMARY KEY(_IdChirurgie),
-    CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(_IdType) REFERENCES TypeChirurgie,
-    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(_IdSalle) REFERENCES Salle
+    CONSTRAINT chirurgie_pk PRIMARY KEY(IdChirurgie),
+    CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
+    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
 SET ECHO OFF;
-    
+
 
 
 
