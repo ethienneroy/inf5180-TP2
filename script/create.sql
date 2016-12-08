@@ -17,21 +17,6 @@ ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY';
 SET ECHO ON;
 
 
-CREATE TABLE DossierPatient (
-    NumDos INTEGER,
-    NomP VARCHAR(20),
-    PrenomP VARCHAR(20),
-    Sexe VARCHAR(1),
-    NumAS VARCHAR(12),
-    DateNaiss DATE,
-    DateC Date,
-    Matricule INTEGER,
-    NbrConsultation INTEGER,
-    CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
-    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES(Docteur),
-    CONSTRAINT numAS_unique UNIQUE(NumAs)
-)
-/
 CREATE TABLE Categorie (
     IdCategorie INTEGER,
     Nom VARCHAR(20),
@@ -69,6 +54,30 @@ CREATE TABLE Docteur (
     CONSTRAINT docteur_specialite_fk FOREIGN KEY(Specialite) REFERENCES Specialite
 )
 /
+CREATE TABLE DossierPatient (
+    NumDos INTEGER,
+    NomP VARCHAR(20),
+    PrenomP VARCHAR(20),
+    Sexe VARCHAR(1),
+    NumAS VARCHAR(12),
+    DateNaiss DATE,
+    DateC Date,
+    Matricule INTEGER,
+    NbrConsultation INTEGER,
+    CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
+    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES(Docteur),
+    CONSTRAINT numAS_unique UNIQUE(NumAs)
+)
+/
+CREATE TABLE Ordonnance (
+    NumOrd INTEGER,
+    Recommandantions VARCHAR(200),
+    Type VARCHAR(20),
+    DateC DATE,
+    NbrMedicaments NUMBER(5),
+    CONSTRAINT ordonnance_pk PRIMARY KEY(NumOrd)
+)
+/
 CREATE TABLE Consultation (
 	CodeDocteur INTEGER,
 	NumDos INTEGER,
@@ -81,13 +90,23 @@ CREATE TABLE Consultation (
 	CONSTRAINT consultation_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 /
-CREATE TABLE Ordonnance (
-	NumOrd INTEGER,
-	Recommandantions VARCHAR(200),
-	Type VARCHAR(20),
-	DateC DATE,
-	NbrMedicaments NUMBER(5),
-	CONSTRAINT ordonnance_pk PRIMARY KEY(NumOrd)
+CREATE TABLE TypeChirurgie (
+    IdType INTEGER,
+    Nom VARCHAR(20),
+    Descritption VARCHAR(30),
+    CONSTRAINT typeChirurgie_pk PRIMARY KEY(IdType)
+)
+/
+CREATE TABLE Chirurgie (
+    IdChirurgie INTEGER,
+    IdType INTEGER,
+    IdSalle INTEGER,
+    DateChirurgie DATE,
+    HeureDebut TIME,
+    HeureFin TIME,
+    CONSTRAINT chirurgie_pk PRIMARY KEY(IdChirurgie),
+    CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
+    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
 CREATE TABLE OrdonnanceChirurgie (
@@ -114,13 +133,6 @@ CREATE TABLE SpecialisationsSalle (
 	CONSTRAINT spcialisationSalle_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
-CREATE TABLE TypeChirurgie (
-	IdType INTEGER,
-	Nom VARCHAR(20),
-	Descritption VARCHAR(30),
-	CONSTRAINT typeChirurgie_pk PRIMARY KEY(IdType)
-)
-/
 CREATE TABLE OrdonnanceMedicaments (
 	NumOrd INTEGER,
 	IdMed INTEGER,
@@ -130,18 +142,6 @@ CREATE TABLE OrdonnanceMedicaments (
 	CONSTRAINT ordonnanceMedicaments_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 
-CREAT TABLE Chirurgie (
-    IdChirurgie INTEGER,
-    IdType INTEGER,
-    IdSalle INTEGER,
-    DateChirurgie DATE,
-    HeureDebut TIME,
-    HeureFin TIME,
-    CONSTRAINT chirurgie_pk PRIMARY KEY(IdChirurgie),
-    CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
-    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
-)
-/
 SET ECHO OFF;
 
 
