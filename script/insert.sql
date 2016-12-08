@@ -6,7 +6,7 @@
 --  Ethienne Roy
 --  Emanuel Gonthier GONE27069202
 -- ==========================================
-
+TO_DATE('2003/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss')
 -- *********************************************
 -- Script de remplissage
 -- *********************************************
@@ -15,7 +15,7 @@ SET LINESIZE 160
 SET ECHO ON
 
 -- INSERT INTO DossierPatient VALUES(numDos, nomP, prenomP, sexe, numAS, dateNaiss, dateC, matricule, nbrConsultation);
-INSERT INTO DossierPatient VALUES(1, 'Gonthier', 'Emanuel', 'M', 'GONE92062700', '1992-06-27', '2016-12-02', 1, 6);
+INSERT INTO DossierPatient VALUES(1, 'Gonthier', 'Emanuel', 'M', 'GONE92062700', TO_DATE('1992-06-27', 'yyyy-mm-dd'), '2016-12-02', 1, 6);
 INSERT INTO DossierPatient VALUES(2, 'Tremblay', 'Lucie', 'F', 'TREL85110201', '1985-11-02', '2002-08-20', 1, 3);
 INSERT INTO DossierPatient VALUES(3, 'Sauve', 'Andre', 'M', 'SAUA70092001', '1970-09-20', '1980-02-17', 2, 1);
 INSERT INTO DossierPatient VALUES(4, 'Petit', 'Cecile', 'F', 'PETC40050810', '1940-05-08', '1960-02-15', 2, 1);
