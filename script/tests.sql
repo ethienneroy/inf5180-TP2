@@ -84,13 +84,13 @@ ROLLBACK
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
-INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
-INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:30:00, 17:30:00);
+INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
+INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:30:00', '17:30:00');
 ROLLBACK
 
-INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
-INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 18:00:00, 19:00:00);
-UPDATE Chirurgie SET HeureDebut = 16:30:00
+INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
+INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '18:00:00', '19:00:00');
+UPDATE Chirurgie SET HeureDebut = '16:30:00'
 WHERE IdChirurgie = 8;
 ROLLBACK
 
@@ -164,7 +164,7 @@ ROLLBACK
 -- Le type de la salle opératoire doit correspondre au type de la chirurgie.
 INSERT INTO Salle VALUES(4, 'salle');
 INSERT INTO SpecialisationsSalle VALUES(2, 4, TO_DATE('2002-02-06', 'yyyy-mm-dd'));
-INSERT INTO Chirurgie VALUES(1, 1, 4, TO_DATE('2002-02-06', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
+INSERT INTO Chirurgie VALUES(1, 1, 4, TO_DATE('2002-02-06', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
 ROLLBACK
 
 -- ****************************************************************************

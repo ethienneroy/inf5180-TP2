@@ -6,7 +6,7 @@
 --  Ethienne Roy
 --  Emanuel Gonthier GONE27069202
 -- ==========================================
-TO_DATE('2003/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss')
+
 -- *********************************************
 -- Script de remplissage
 -- *********************************************
@@ -69,12 +69,12 @@ INSERT INTO OrdonnanceChirurgie VALUES(12, 5, 1);
 INSERT INTO OrdonnanceChirurgie VALUES(13, 6, 1);
 
 -- INSERT INTO Chirurgie VALUES( idChir, idType, idSalle, dateChirurgie, HeureDebut, HeureFin);
-INSERT INTO Chirurgie VALUES(1, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
-INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), 17:01:00, 18:01:00);
-INSERT INTO Chirurgie VALUES(3, 2, 2, TO_DATE('2016-12-10', 'yyyy-mm-dd'), 17:01:00, 18:01:00);
-INSERT INTO Chirurgie VALUES(4, 3, 1, TO_DATE('2016-12-12', 'yyyy-mm-dd'), 12:00:00, 13:00:00);
-INSERT INTO Chirurgie VALUES(5, 1, 3, TO_DATE('2016-12-10', 'yyyy-mm-dd'), 17:01:00, 18:01:00);
-INSERT INTO Chirurgie VALUES(6, 2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'), 17:01:00, 18:01:00);
+INSERT INTO Chirurgie VALUES(1, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
+INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), '17:01:00', '18:01:00');
+INSERT INTO Chirurgie VALUES(3, 2, 2, TO_DATE('2016-12-10', 'yyyy-mm-dd'), '17:01:00', '18:01:00');
+INSERT INTO Chirurgie VALUES(4, 3, 1, TO_DATE('2016-12-12', 'yyyy-mm-dd'), '12:00:00', '13:00:00');
+INSERT INTO Chirurgie VALUES(5, 1, 3, TO_DATE('2016-12-10', 'yyyy-mm-dd'), '17:01:00', '18:01:00');
+INSERT INTO Chirurgie VALUES(6, 2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'), '17:01:00', '18:01:00');
 
 -- INSERT INTO Salle VALUES(idSalle, nom);
 INSERT INTO Salle VALUES(1, 'salle du bas');
