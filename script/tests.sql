@@ -38,47 +38,47 @@ ROLLBACK
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
 UPDATE DossierPatient SET NomP = NULL
-WHERE _NumDos = 6;
+WHERE NumDos = 6;
 ROLLBACK
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
 UPDATE DossierPatient SET PrenomP = NULL
-WHERE _NumDos = 6;
+WHERE NumDos = 6;
 ROLLBACK
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET NomM = NULL
-WHERE _Matricule = 3;
+WHERE Matricule = 3;
 ROLLBACK
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET PrenomP = NULL
-WHERE _Matricule = 3;
+WHERE Matricule = 3;
 ROLLBACK
 
 INSERT INTO Medicament VALUES(5, 'NomM' , 2.99, 1);
 UPDATE Medicament SET NomM = NULL
-WHERE _IdMed = 5;
+WHERE IdMed = 5;
 ROLLBACK
 
 INSERT INTO Salle VALUES(4, 'Nom' );
 UPDATE Salle SET Nom = NULL
-WHERE _IdSalle = 4;
+WHERE IdSalle = 4;
 ROLLBACK
 
 INSERT INTO TypeChirurgie VALUES(4, 'Nom' , 'description');
 UPDATE TypeChirurgie SET Nom = NULL
-WHERE _IdType = 4;
+WHERE IdType = 4;
 ROLLBACK
 
 INSERT INTO Categorie VALUES(3, 'Nom', 'description');
 UPDATE Categorie SET Nom = NULL
-WHERE _IdCategorie = 3;
+WHERE IdCategorie = 3;
 ROLLBACK
 
 INSERT INTO Specialite VALUES(4, 'Titre', 'description');
 UPDATE Specialite SET Titre = NULL
-WHERE _Code = 4;
+WHERE Code = 4;
 ROLLBACK
 
 
@@ -91,7 +91,7 @@ ROLLBACK
 INSERT INTO Chirurgie VALUES(7, 1, 1, '2016-12-02', 16:00:00, 17:00:00);
 INSERT INTO Chirurgie VALUES(8, 1, 1, '2016-12-02', 18:00:00, 19:00:00);
 UPDATE Chirurgie SET HeureDebut = 16:30:00
-WHERE _IdChirurgie = 8;
+WHERE IdChirurgie = 8;
 ROLLBACK
 
 -- ****************************************************************************
@@ -101,12 +101,12 @@ ROLLBACK
 
 INSERT INTO OrdonnanceMedicaments VALUES(12, 3, 2);
 UPDATE OrdonnanceMedicaments SET NbBoites = -10
-WHERE _NumOrd = 12 AND _IdMed = 3;
+WHERE NumOrd = 12 AND IdMed = 3;
 ROLLBACK
 
 INSERT INTO OrdonnanceMedicaments VALUES(12, 3, NULL);
-SELECT _NumOrd FROM OrdonnanceMedicaments
-WHERE _NumOrd = 12 AND NbBoites != 0;
+SELECT NumOrd FROM OrdonnanceMedicaments
+WHERE NumOrd = 12 AND NbBoites != 0;
 ROLLBACK
 
 INSERT INTO Medicament VALUES(5, 'NomM' , -10, 1);
@@ -114,12 +114,12 @@ ROLLBACK
 
 INSERT INTO Medicament VALUES(5, 'NomM' , 2, 1);
 UPDATE Medicament SET Prix = -5
-WHERE _IdMed = 5;
+WHERE IdMed = 5;
 ROLLBACK
 
 INSERT INTO Medicament VALUES(5, 'NomM' , NULL, 1);
-SELECT _IdMed FROM Medicament
-WHERE _IdMed = 5 AND Prix != 0;
+SELECT IdMed FROM Medicament
+WHERE IdMed = 5 AND Prix != 0;
 ROLLBACK
 
 
