@@ -65,7 +65,7 @@ CREATE TABLE DossierPatient (
     Matricule INTEGER,
     NbrConsultation INTEGER,
     CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
-    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES(Docteur),
+    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES Docteur,
     CONSTRAINT numAS_unique UNIQUE(NumAs)
 )
 /
@@ -114,8 +114,8 @@ CREATE TABLE OrdonnanceChirurgie (
 	IdChir INTEGER,
 	Rang INTEGER, -- A VERIFIER DANS LE TP1
 	CONSTRAINT ordonnanceChirurgie_pk PRIMARY KEY (NumOrd, IdChir),
-	CONSTRAINT ordonnanceChirurgie_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance,
-	CONSTRAINT ordonnanceChirurgie_chirurgie_fk FOREIGN KEY(IdChir) REFERENCES Chirurgie
+	CONSTRAINT ordonChirurgie_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance,
+	CONSTRAINT ordoChirurgie_chirurgie_fk FOREIGN KEY(IdChir) REFERENCES Chirurgie
 )
 /
 CREATE TABLE Salle (
@@ -129,8 +129,8 @@ CREATE TABLE SpecialisationsSalle (
 	IdSalle INTEGER,
 	DateC DATE,
 	CONSTRAINT spcialisationSalle_pk PRIMARY KEY(IdSalle, IdType),
-	CONSTRAINT spcialisationSalle_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
-	CONSTRAINT spcialisationSalle_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
+	CONSTRAINT spcSalle_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
+	CONSTRAINT spcSalle_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
 CREATE TABLE OrdonnanceMedicaments (
@@ -138,8 +138,8 @@ CREATE TABLE OrdonnanceMedicaments (
 	IdMed INTEGER,
 	NbBoites NUMBER(5),
 	CONSTRAINT ordonnanceMedicaments_pk PRIMARY KEY(NumOrd, IdMed),
-	CONSTRAINT ordonnanceMedicaments_medicament_fk FOREIGN KEY(IdMed) REFERENCES Medicament,
-	CONSTRAINT ordonnanceMedicaments_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
+	CONSTRAINT ordoMedicaments_medicament_fk FOREIGN KEY(IdMed) REFERENCES Medicament,
+	CONSTRAINT ordoMedicaments_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 
 SET ECHO OFF;
