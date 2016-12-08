@@ -17,9 +17,9 @@ SET ECHO ON
 
 -- ****************************************************************************
 -- Les données nomP, prenomP, nomM, prenomM, nomMed, nom, titre, et diagnostic doivent toujours être connues.
-INSERT INTO DossierPatient VALUES(6, NULL,'prenom' , 'M', 'GONE92062712', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6, NULL,'prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
-INSERT INTO DossierPatient VALUES(6,'nom' , NULL, 'M', 'GONE92062712', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6,'nom' , NULL, 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
 INSERT INTO Docteur VALUES(3, NULL,'prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 ROLLBACK
@@ -36,12 +36,12 @@ ROLLBACK
 INSERT INTO Specialite VALUES(4, NULL, 'description');
 ROLLBACK
 
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET NomP = NULL
 WHERE NumDos = 6;
 ROLLBACK
 
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET PrenomP = NULL
 WHERE NumDos = 6;
 ROLLBACK
@@ -84,12 +84,12 @@ ROLLBACK
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
-INSERT INTO Chirurgie VALUES(7, 1, 1, '2016-12-02', 16:00:00, 17:00:00);
-INSERT INTO Chirurgie VALUES(8, 1, 1, '2016-12-02', 16:30:00, 17:30:00);
+INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
+INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:30:00, 17:30:00);
 ROLLBACK
 
-INSERT INTO Chirurgie VALUES(7, 1, 1, '2016-12-02', 16:00:00, 17:00:00);
-INSERT INTO Chirurgie VALUES(8, 1, 1, '2016-12-02', 18:00:00, 19:00:00);
+INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
+INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 18:00:00, 19:00:00);
 UPDATE Chirurgie SET HeureDebut = 16:30:00
 WHERE IdChirurgie = 8;
 ROLLBACK
@@ -125,10 +125,10 @@ ROLLBACK
 
 -- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'D', 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'D', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
 
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', NULL, 'GONE90101012', '1992-06-27', '2016-12-02', 1, 0);
+INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', NULL, 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
 
 -- ****************************************************************************
@@ -147,15 +147,15 @@ ROLLBACK
 
 -- ****************************************************************************
 -- les types autorisés sont : Chirurgie ou Médicaments.
-INSERT INTO Ordonnance VALUES(14, 'repos', 'Experimentation', '2016-12-02', 2);
+INSERT INTO Ordonnance VALUES(14, 'repos', 'Experimentation', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 2);
 ROLLBACK
 
-INSERT INTO Ordonnance VALUES(14, 'repos', NULL, '2016-12-02', 2);
+INSERT INTO Ordonnance VALUES(14, 'repos', NULL, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 2);
 ROLLBACK
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même ordonnance avec le même rang.
-INSERT INTO Ordonnance VALUES(14, 'repos', 'Chirurgie', '1996-12-02', 0);
+INSERT INTO Ordonnance VALUES(14, 'repos', 'Chirurgie', TO_DATE('1996-12-02', 'yyyy-mm-dd'), 0);
 INSERT INTO OrdonnanceChirurgie VALUES(14, 1, 1);
 INSERT INTO OrdonnanceChirurgie VALUES(14, 2, 1);
 ROLLBACK
@@ -163,17 +163,17 @@ ROLLBACK
 -- ****************************************************************************
 -- Le type de la salle opératoire doit correspondre au type de la chirurgie.
 INSERT INTO Salle VALUES(4, 'salle');
-INSERT INTO SpecialisationsSalle VALUES(2, 4, '2006-02-06');
-INSERT INTO Chirurgie VALUES(1, 1, 4, '2006-02-06', 16:00:00, 17:00:00);
+INSERT INTO SpecialisationsSalle VALUES(2, 4, TO_DATE('2002-02-06', 'yyyy-mm-dd'));
+INSERT INTO Chirurgie VALUES(1, 1, 4, TO_DATE('2002-02-06', 'yyyy-mm-dd'), 16:00:00, 17:00:00);
 ROLLBACK
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
-INSERT INTO Ordonnance VALUES(14, 'repos', 'Medicaments', '1970-06-17', 0);
+INSERT INTO Ordonnance VALUES(14, 'repos', 'Medicaments', TO_DATE('1970-06-07', 'yyyy-mm-dd'), 0);
 INSERT INTO OrdonnanceChirurgie VALUES(14, 6, 1);
 ROLLBACK
 
-INSERT INTO Ordonnance VALUES(14, 'repos', 'Chirurgie', '1970-06-17', 0);
+INSERT INTO Ordonnance VALUES(14, 'repos', 'Chirurgie', TO_DATE('1970-06-07', 'yyyy-mm-dd'), 0);
 INSERT INTO OrdonnanceMedicaments VALUES(14, 6, 1);
 ROLLBACK
 
