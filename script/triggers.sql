@@ -14,10 +14,6 @@
 
 SET ECHO ON
 
--- ****************************************************************************
--- Les données nomP, prenomP, nomM, prenomM, nomMed, nom, titre, et diagnostic doivent toujours être connues.
--- AVEC CONDITIONS NOT NULL ????
-
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
@@ -33,11 +29,6 @@ SET ECHO ON
 
 
 -- ****************************************************************************
--- Toutes les valeurs (nbBoites, prix, etc.) ont une valeur par défaut à 0 et prennent des valeurs positives.
--- AVEC CONDITION DEFAULT ????
-
-
--- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
 CREATE OR REPLACE TRIGGER verif_sexe_patient
 BEFORE UPDATE OR INSERT OF Sexe ON DossierPatient
@@ -47,11 +38,6 @@ BEGIN
 		raise_application_error(-20001, 'Le champs sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.');
 END;
 /
-
--- ****************************************************************************
--- Il ne peut pas y avoir deux médicaments avec le même nom et la même catégorie.
--- AVEC CONDITIONS UNIQUE ????
-
 
 -- ****************************************************************************
 -- Les niveaux autorisés sont : Étudiant, Interne, ou Docteur et
@@ -76,9 +62,6 @@ END;
 /
 
 -- ****************************************************************************
--- Il ne peut pas y avoir deux chirurgies pour une même ordonnance avec le même rang.
-
--- ****************************************************************************
 -- Le type de la salle opératoire doit correspondre au type de la chirurgie.
 
 -- ****************************************************************************
@@ -86,11 +69,6 @@ END;
 
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
--- CREATE OR REPLACE TRIGGER nbrPatients_docteur
--- BEFORE UPDATE OR INSERT OF Matricule ON DossierPatient
--- FOR EACH ROW
--- BEGIN
-
 
 
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
@@ -109,9 +87,6 @@ END;
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
 
 -- ****************************************************************************
--- La suppression ou la modification d'un docteur doit entraîner la suppression ou la modification de ses consultations.
--- La modification d'un patient doit entraîner la modification de ses consultations.
--- La suppression d'un patient doit entraîner la modification de ses consultations en donnant la valeur nulle au numPat.
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
 
