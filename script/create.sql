@@ -119,7 +119,7 @@ CREATE TABLE Chirurgie (
     HeureFin DATE,
     CONSTRAINT chirurgie_pk PRIMARY KEY(IdChirurgie),
     CONSTRAINT chirurgie_typeChirurgie_fk FOREIGN KEY(IdType) REFERENCES TypeChirurgie,
-    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle,
+    CONSTRAINT chirurgie_salle_fk FOREIGN KEY(IdSalle) REFERENCES Salle
 )
 /
 CREATE TABLE OrdonnanceChirurgie (
@@ -150,5 +150,6 @@ CREATE TABLE OrdonnanceMedicaments (
 	CONSTRAINT ordoMedicaments_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance,
   CONSTRAINT nbBoites_positif CHECK (NbBoites >= 0)
 )
+/
 
 SET ECHO OFF;
