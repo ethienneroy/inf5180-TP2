@@ -91,9 +91,9 @@ CREATE TABLE Consultation (
 	NumOrd INTEGER,
 	CONSTRAINT consultation_pk PRIMARY KEY(CodeDocteur, NumDos, DateC),
 	CONSTRAINT consultation_docteur_fk FOREIGN KEY(CodeDocteur) REFERENCES Docteur
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE CASCADE,
 	CONSTRAINT consultation_patient_fk FOREIGN KEY(NumDos) REFERENCES DossierPatient
-        ON UPDATE CASCADE ON DELETE SET NULL,
+        ON DELETE SET NULL,
 	CONSTRAINT consultation_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 /
