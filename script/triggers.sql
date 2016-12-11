@@ -112,12 +112,18 @@ END;
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
 CREATE OR REPLACE TRIGGER nbrPatients_Docteur
-AFTER UPDATE OR INSERT ON DossierPatient
+AFTER INSERT OR DELETE ON DossierPatient
 FOR EACH ROW
 BEGIN
-  UPDATE Docteur
-  SET NbrPatients =(SELECT COUNT(*) FROM DossierPatient
-                        WHERE Docteur.Matricule = :NEW.Matricule);
+	IF inserting THEN
+	UPDATE Docteur
+	SET NbrPatients = NbrPatients + 1
+	WHERE Docteur.Matricule = :NEW.Matricule;
+	ELSE
+	UPDATE Docteur
+	SET NbrPatients = NbrPatients - 1
+	WHERE Docteur.Matricule = :OLD.Matricule;
+	END IF;
 END;
 /
 -- ****************************************************************************
