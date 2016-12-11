@@ -85,7 +85,7 @@ CREATE TABLE Ordonnance (
 /
 CREATE TABLE Consultation (
 	CodeDocteur INTEGER NOT NULL,
-	NumDos INTEGER NOT NULL,
+	NumDos INTEGER,
 	DateC DATE NOT NULL,
 	Diagnostic VARCHAR(200) NOT NULL,
 	NumOrd INTEGER,

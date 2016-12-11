@@ -111,4 +111,16 @@ BEGIN
 END;
 /
 
+-- ****************************************************************************
+--   La modification d'un patient doit entraîner la modification de ses consultations
+CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
+AFTER UPDATE ON DossierPatient
+FOR EACH ROW
+BEGIN
+  UPDATE Consultation
+  SET NumDos = :NEW.NumDos
+  WHERE NumDos = :OLD.NumDos;
+END;
+/
+
 SET ECHO OFF
