@@ -32,6 +32,20 @@ INSERT INTO DossierPatient VALUES(4, 'Petit', 'Cecile', 'F', 'PETC40050810', TO_
 INSERT INTO DossierPatient VALUES(5, 'Gonthier', 'Emanuel', 'M', 'GONE66041400', TO_DATE('1966-04-14', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 2);
 INSERT INTO DossierPatient VALUES(10, 'Gonthier', 'Emanuel', 'M','GONE92062701', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 
+-- INSERT INTO Ordonnance VALUES(numOrd, recommandations, type, dateC, nbrMedicaments);
+INSERT INTO Ordonnance VALUES(1, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 20);
+INSERT INTO Ordonnance VALUES(2, 'repos', 'Medicaments', TO_DATE('2016-12-03', 'yyyy-mm-dd'), 9);
+INSERT INTO Ordonnance VALUES(3, 'repos', 'Medicaments', TO_DATE('2016-12-04', 'yyyy-mm-dd'), 3);
+INSERT INTO Ordonnance VALUES(4, 'repos', 'Medicaments', TO_DATE('2016-12-05', 'yyyy-mm-dd'), 5);
+INSERT INTO Ordonnance VALUES(5, 'repos', 'Chirurgie', TO_DATE('2016-12-06', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(6, 'repos', 'Chirurgie', TO_DATE('2016-12-07', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(7, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 7);
+INSERT INTO Ordonnance VALUES(8, 'repos', 'Chirurgie', TO_DATE('2016-12-01', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(9, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 10);
+INSERT INTO Ordonnance VALUES(10, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 4);
+INSERT INTO Ordonnance VALUES(11, 'repos', 'Medicaments', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 2);
+INSERT INTO Ordonnance VALUES(12, 'repos', 'Chirurgie', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(13, 'repos', 'Chirurgie', TO_DATE('2016-12-17', 'yyyy-mm-dd'), 0);
 
 -- INSERT INTO Consultation VALUES(CodeDocteur, numDos, dateC, diagnostic, numOrd);
 INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 1);
@@ -48,20 +62,6 @@ INSERT INTO Consultation VALUES(2, 4, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'mala
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 12);
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-17', 'yyyy-mm-dd'), 'malade', 13);
 
--- INSERT INTO Ordonnance VALUES(numOrd, recommandations, type, dateC, nbrMedicaments);
-INSERT INTO Ordonnance VALUES(1, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 20);
-INSERT INTO Ordonnance VALUES(2, 'repos', 'Medicaments', TO_DATE('2016-12-03', 'yyyy-mm-dd'), 9);
-INSERT INTO Ordonnance VALUES(3, 'repos', 'Medicaments', TO_DATE('2016-12-04', 'yyyy-mm-dd'), 3);
-INSERT INTO Ordonnance VALUES(4, 'repos', 'Medicaments', TO_DATE('2016-12-05', 'yyyy-mm-dd'), 5);
-INSERT INTO Ordonnance VALUES(5, 'repos', 'Chirurgie', TO_DATE('2016-12-06', 'yyyy-mm-dd'), 0);
-INSERT INTO Ordonnance VALUES(6, 'repos', 'Chirurgie', TO_DATE('2016-12-07', 'yyyy-mm-dd'), 0);
-INSERT INTO Ordonnance VALUES(7, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 7);
-INSERT INTO Ordonnance VALUES(8, 'repos', 'Chirurgie', TO_DATE('2016-12-01', 'yyyy-mm-dd'), 0);
-INSERT INTO Ordonnance VALUES(9, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 10);
-INSERT INTO Ordonnance VALUES(10, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 4);
-INSERT INTO Ordonnance VALUES(11, 'repos', 'Medicaments', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 2);
-INSERT INTO Ordonnance VALUES(12, 'repos', 'Chirurgie', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 0);
-INSERT INTO Ordonnance VALUES(13, 'repos', 'Chirurgie', TO_DATE('2016-12-17', 'yyyy-mm-dd'), 0);
 
 
 -- INSERT INTO TypeChirurgie VALUES(IdType, nom, Description);

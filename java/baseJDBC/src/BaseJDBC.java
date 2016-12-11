@@ -19,8 +19,6 @@ import java.sql.*;
 public class BaseJDBC {
 
     private static String user = "inf5180";
-    private static String pwd = "ROY85277";
-//    static final String JDBC_DRIVER = "Driver d'oracle";
     static final String DB_URL = "jdbc:oracle:thin@74.208.82.123:1521:BACLAB";
     /**
      * @param args the command line arguments
@@ -58,7 +56,13 @@ public class BaseJDBC {
 //                System.out.println(", Phone: " + phone);
             }
 
+//            - Afficher le nombre de consultations par docteurs ou afficher le nombre de consultations
+//            par spécialité.
+
             //STEP 6: Executer un Update - Insert
+
+
+
 //            sql = "insert into client values(5,'zaier','51455555555')";
 //            int number = stmt.executeUpdate(sql);
 //            System.out.println(" the change 1: " + number);
