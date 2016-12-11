@@ -2,6 +2,9 @@
  *
  * @author Ethienne Roy ROYE08129209
  */
+package models;
+
+
 public class Medicament{
     int id;
     String nom;

@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package basejdbc;
+//package basejdbc;
+
+import models.*;
+
+import javax.print.Doc;
 
 /**
  *
  * @author Zied Zaier < Zaier.Zied at uqam.ca>
  */
+
 public class BaseJDBC {
 
     /**
@@ -16,6 +21,6 @@ public class BaseJDBC {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("hello world");
     }
-    
 }
