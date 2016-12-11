@@ -63,16 +63,16 @@ END;
 
 -- ****************************************************************************
 -- Le type de la salle opératoire doit correspondre au type de la chirurgie.
--- CREATE OR REPLACE TRIGGER verif_salle_operatoire
--- BEFORE UPDATE OR INSERT OF IdType ON Chirurgie
--- FOR EACH ROW
--- BEGIN
--- 	IF 0 = 	(SELECT COUNT(*) FROM SpecialisationsSalle
--- 	WHERE IdType = NEW.IdType AND IdSalle = NEW.IdSalle) THEN
--- 		raise_application_error(-20005, 'La salle operatoire ne correspond pas au type de la chirurgie.');
--- 	END IF
--- END;
--- /
+CREATE OR REPLACE TRIGGER verif_salle_operatoire
+BEFORE UPDATE OR INSERT OF IdType ON Chirurgie
+FOR EACH ROW
+BEGIN
+	IF 0 = (SELECT COUNT(*) FROM SpecialisationsSalle
+	WHERE IdType = NEW.IdType AND IdSalle = NEW.IdSalle) THEN
+		raise_application_error(-20005, 'La salle operatoire ne correspond pas au type de la chirurgie.');
+	END IF
+END;
+/
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
