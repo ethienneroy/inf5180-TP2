@@ -99,5 +99,16 @@ END;
 -- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
+-- ****************************************************************************
+--  la modification d'un docteur doit entrainer la modification de ses consultations
+CREATE OR REPLACE TRIGGER modifie_matricule_docteur
+AFTER UPDATE ON Docteur
+FOR EACH ROW
+BEGIN
+  UPDATE Consultation
+  SET CodeDocteur = :NEW.Matricule
+  WHERE CodeDocteur = :OLD.Matricule;
+END;
+/
 
 SET ECHO OFF
