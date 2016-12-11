@@ -17,16 +17,21 @@ SET ECHO ON
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
--- CREATE OR REPLACE TRIGGER unique_chir_salle
--- BEFORE INSERT OR UPDATE ON Chirurgie
--- FOR EACH ROW
--- DECLARE
--- selection tous les lignes qvec meme IdSalle et meme DateChirurgie
--- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
+CREATE OR REPLACE TRIGGER unique_chirur_salle
+BEFORE INSERT OR UPDATE ON Chirurgie
+FOR EACH ROW
+DECLARE sameDayChirurCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
+	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie;
+	IF sameDayChirurCount > 0 THEN
+		
+	-- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
 -- OR :NEW.HeureFin > HeureDebut AND :NEW.HeureFin < HeureFin
--- BEGIN
- -- raise_application_error(-20004, 'Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.')
-
+		raise_application_error(-20004, 'Same day chirurgie');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
@@ -71,20 +76,57 @@ BEGIN
 	SELECT COUNT(*) INTO salleCount FROM SpecialisationsSalle
 	WHERE IdType = :NEW.IdType AND IdSalle = :NEW.IdSalle;
 	IF salleCount = 0 THEN
-		raise_application_error(-20005, 'La salle operatoire ne correspond pas au type de la chirurgie.');
+		raise_application_error(-20004, 'La salle operatoire ne correspond pas au type de la chirurgie.');
 	END IF;
 END;
 /
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
+CREATE OR REPLACE TRIGGER verif_type_ord_chirur
+BEFORE UPDATE OR INSERT OF NumOrd ON OrdonnanceChirurgie
+FOR EACH ROW
+DECLARE ordonnanceTypeCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordonnanceTypeCount FROM Ordonnance
+	WHERE NumOrd = :NEW.NumOrd;
+	IF ordonnanceTypeCount = 0 THEN
+		raise_application_error(-20004, 'Lordonnance de la chirurgie ne correspond a aucune ordonnace');
+	END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER verif_type_ord_med
+BEFORE UPDATE OR INSERT OF NumOrd ON OrdonnanceMedicaments
+FOR EACH ROW
+DECLARE ordonnanceTypeCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordonnanceTypeCount FROM Ordonnance
+	WHERE NumOrd = :NEW.NumOrd;
+	IF ordonnanceTypeCount = 0 THEN
+		raise_application_error(-20004, 'Lordonnance des medicaments ne correspond a aucune ordonnace');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
-
-
+CREATE OR REPLACE TRIGGER nbrPatients_Docteur
+AFTER UPDATE OR INSERT ON DossierPatient
+FOR EACH ROW
+BEGIN
+  UPDATE Docteur
+  SET NbrPatients =(SELECT COUNT(*) FROM DossierPatient
+                        WHERE Docteur.Matricule = :NEW.Matricule);
+END;
+/
+-- ****************************************************************************
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 71a4191c85212f72568a6b9610e5db5698d92fd0
 -- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
 CREATE OR REPLACE TRIGGER nbrConsultation_patient
@@ -102,7 +144,10 @@ BEGIN
   END IF;
 END;
 /
+<<<<<<< HEAD
 
+=======
+>>>>>>> 71a4191c85212f72568a6b9610e5db5698d92fd0
 -- ****************************************************************************
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
 CREATE OR REPLACE TRIGGER nbrMedicaments_ordonnance
@@ -121,9 +166,34 @@ BEGIN
 END;
 /
 
+
 -- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
+CREATE OR REPLACE TRIGGER modif_Ord
+BEFORE UPDATE OR DELETE ON Ordonnance
+FOR EACH ROW
+DECLARE consulCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO consulCount FROM Consultation
+	WHERE NumOrd = :New.NumOrd;
+	IF consulCount > 0 THEN
+		raise_application_error(-20004, 'Une ordonnace ne peut etre modifié ou supprimé lorsquelle est reference dans une consultation');
+	END IF;
+END;
+/
 
+CREATE OR REPLACE TRIGGER modif_Med
+BEFORE UPDATE OR DELETE ON Medicament
+FOR EACH ROW
+DECLARE OrdCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO OrdCount FROM OrdonnanceMedicaments
+	WHERE IdMed = :New.IdMed;
+	IF OrdCount > 0 THEN
+		raise_application_error(-20004, 'Une medicament ne peut etre modifié ou supprimé lorsquelle est reference dans une ordonnance');
+	END IF;
+END;
+/
 -- ****************************************************************************
 --  la modification d'un docteur doit entrainer la modification de ses consultations
 -- CREATE OR REPLACE TRIGGER cascade_modifie_docteur
