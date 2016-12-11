@@ -2,6 +2,8 @@
  *
  * @author Ethienne Roy ROYE08129209
  */
+package models;
+
 public class Docteur{
     int Matricule ;
     String NomM;

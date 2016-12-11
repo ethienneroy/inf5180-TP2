@@ -2,6 +2,10 @@
  *
  * @author Ethienne Roy ROYE08129209
  */
+package models;
+
+import java.util.Date;
+
 public class Consultation{
 
     Docteur docteur;

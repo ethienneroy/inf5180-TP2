@@ -53,7 +53,8 @@ CREATE TABLE Docteur (
     NbrPatients INTEGER DEFAULT 0,
     NbrMoyenMedicaments NUMBER(6) DEFAULT 0,
     CONSTRAINT docteur_pk PRIMARY KEY(Matricule),
-    CONSTRAINT docteur_specialite_fk FOREIGN KEY(Specialite) REFERENCES Specialite,
+    CONSTRAINT docteur_specialite_fk FOREIGN KEY(Specialite) REFERENCES Specialite
+        ON DELETE SET NULL,
     CONSTRAINT nbrPatients_positif CHECK (NbrMoyenMedicaments >= 0)
 )
 /
@@ -68,7 +69,8 @@ CREATE TABLE DossierPatient (
     Matricule INTEGER,
     NbrConsultation INTEGER DEFAULT 0,
     CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
-    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES Docteur,
+    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES Docteur
+        ON DELETE SET NULL,
     CONSTRAINT numAS_unique UNIQUE(NumAs),
     CONSTRAINT nbrConsultation_positif CHECK (NbrConsultation >= 0)
 )
