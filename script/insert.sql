@@ -3,7 +3,7 @@
 --  Francois Planet PLAF17069100
 --  Mathieu Mathurin MATM05059000
 --  Olivier Pinneau
---  Ethienne Roy
+--  Ethienne Roy ROYE08129209
 --  Emanuel Gonthier GONE27069202
 -- ==========================================
 
@@ -88,7 +88,7 @@ INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DA
 INSERT INTO Chirurgie VALUES(3, 2, 2, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
 INSERT INTO Chirurgie VALUES(4, 3, 1, TO_DATE('2016-12-12', 'yyyy-mm-dd'), TO_DATE('2016-12-12 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-12 13:00:00', 'yyyy-mm-dd hh24:mi:ss'));
 INSERT INTO Chirurgie VALUES(5, 1, 3, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
-INSERT INTO Chirurgie VALUES(6, 2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'), TO_DATE('2016-12-11 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-11 18:01:00', 'yyyy-mm-dd hh24:mi:ss')); 
+INSERT INTO Chirurgie VALUES(6, 2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'), TO_DATE('2016-12-11 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-11 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
 
 
 -- INSERT INTO OrdonnanceChirurgie VALUES(numOrd, idChir, rang);
