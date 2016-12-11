@@ -44,7 +44,7 @@ END;
 CREATE OR REPLACE TRIGGER verif_niveau_docteur
 BEFORE UPDATE OR INSERT OF Niveau ON Docteur
 FOR EACH ROW
-WHEN (NEW.Niveau != 'Etudiant' OR NEW.Niveau != 'Interne' OR NEW.Niveau != 'Docteur')
+WHEN (NEW.Niveau != 'Etudiant' AND NEW.Niveau != 'Interne' AND NEW.Niveau != 'Docteur')
 BEGIN
 		raise_application_error(-20002, 'Les niveaux autorisés sont : Étudiant, Interne, ou Docteur');
 END;
@@ -88,9 +88,15 @@ CREATE OR REPLACE TRIGGER nbrConsultation_patient
 AFTER UPDATE OR INSERT ON Consultation
 FOR EACH ROW
 BEGIN
-  UPDATE DossierPatient
-  set nbrConsultation =(SELECT COUNT(*) FROM Consultation
-                        WHERE Consultation.NumDos = :NEW.NumDos);
+  IF INSERTING THEN
+    UPDATE DossierPatient
+    SET NbrConsultation = NbrConsultation + 1
+    WHERE DossierPatient.NumDos = :NEW.NumDos;
+  ELSE
+    UPDATE DossierPatient
+    SET NbrConsultation = NbrConsultation - 1
+    WHERE DossierPatient.NumDos = :New.NumDos;
+  END IF;
 END;
 /
 
@@ -102,7 +108,7 @@ END;
 -- ****************************************************************************
 --  la modification d'un docteur doit entrainer la modification de ses consultations
 CREATE OR REPLACE TRIGGER cascade_modifie_docteur
-AFTER UPDATE ON Docteur
+AFTER UPDATE OF Matricule ON Docteur
 FOR EACH ROW
 BEGIN
   UPDATE Consultation
@@ -114,7 +120,7 @@ END;
 -- ****************************************************************************
 --   La modification d'un patient doit entraîner la modification de ses consultations
 CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
-AFTER UPDATE ON DossierPatient
+AFTER UPDATE OF NumDos ON DossierPatient
 FOR EACH ROW
 BEGIN
   UPDATE Consultation
