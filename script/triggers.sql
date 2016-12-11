@@ -101,7 +101,7 @@ END;
 
 -- ****************************************************************************
 --  la modification d'un docteur doit entrainer la modification de ses consultations
-CREATE OR REPLACE TRIGGER modifie_matricule_docteur
+CREATE OR REPLACE TRIGGER cascade_modifie_docteur
 AFTER UPDATE ON Docteur
 FOR EACH ROW
 BEGIN
