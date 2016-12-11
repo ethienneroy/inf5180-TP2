@@ -99,5 +99,28 @@ END;
 -- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
+-- ****************************************************************************
+--  la modification d'un docteur doit entrainer la modification de ses consultations
+CREATE OR REPLACE TRIGGER cascade_modifie_docteur
+AFTER UPDATE ON Docteur
+FOR EACH ROW
+BEGIN
+  UPDATE Consultation
+  SET CodeDocteur = :NEW.Matricule
+  WHERE CodeDocteur = :OLD.Matricule;
+END;
+/
+
+-- ****************************************************************************
+--   La modification d'un patient doit entraîner la modification de ses consultations
+CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
+AFTER UPDATE ON DossierPatient
+FOR EACH ROW
+BEGIN
+  UPDATE Consultation
+  SET NumDos = :NEW.NumDos
+  WHERE NumDos = :OLD.NumDos;
+END;
+/
 
 SET ECHO OFF

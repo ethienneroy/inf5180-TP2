@@ -12,9 +12,9 @@ public class DossierPatient{
     Date DateC;
     int matricule;
     int nbrConsultation;
-    int Docteur;
+    Docteur docteur;
 
-    public DossierPatient(int numDos, String nomPatient, String prenomPatient, char sexe, String numAs, Date naissance, Date dateC, int matricule, int nbrConsultation, int docteur) {
+    public DossierPatient(int numDos, String nomPatient, String prenomPatient, char sexe, String numAs, Date naissance, Date dateC, int matricule, int nbrConsultation, Docteur docteur) {
         this.numDos = numDos;
         this.nomPatient = nomPatient;
         this.prenomPatient = prenomPatient;
