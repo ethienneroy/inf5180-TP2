@@ -122,11 +122,6 @@ END;
 /
 -- ****************************************************************************
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 71a4191c85212f72568a6b9610e5db5698d92fd0
 -- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
 CREATE OR REPLACE TRIGGER nbrConsultation_patient
@@ -144,10 +139,6 @@ BEGIN
   END IF;
 END;
 /
-<<<<<<< HEAD
-
-=======
->>>>>>> 71a4191c85212f72568a6b9610e5db5698d92fd0
 -- ****************************************************************************
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
 CREATE OR REPLACE TRIGGER nbrMedicaments_ordonnance
