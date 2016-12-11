@@ -1,7 +1,7 @@
 -- ==========================================
 --  INF5180-30 –  Base de Donnees 2
 --  Francois Planet PLAF17069100
---  Mathieu Mathurin
+--  Mathieu Mathurin MATM05059000
 --  Olivier Pinneau
 --  Ethienne Roy
 --  Emanuel Gonthier GONE27069202
@@ -34,6 +34,8 @@ ROLLBACK
 INSERT INTO Categorie VALUES(3, NULL, 'description');
 ROLLBACK
 INSERT INTO Specialite VALUES(4, NULL, 'description');
+ROLLBACK
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), NULL, 13);
 ROLLBACK
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
