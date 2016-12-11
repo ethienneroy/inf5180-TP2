@@ -66,11 +66,13 @@ END;
 CREATE OR REPLACE TRIGGER verif_salle_operatoire
 BEFORE UPDATE OR INSERT OF IdType ON Chirurgie
 FOR EACH ROW
+DECLARE salleCount INTEGER;
 BEGIN
-	IF 0 = (SELECT COUNT(*) FROM SpecialisationsSalle
-	WHERE IdType = NEW.IdType AND IdSalle = NEW.IdSalle) THEN
+	SELECT COUNT(*) INTO salleCount FROM SpecialisationsSalle
+	WHERE IdType = :NEW.IdType AND IdSalle = :NEW.IdSalle;
+	IF salleCount = 0 THEN
 		raise_application_error(-20005, 'La salle operatoire ne correspond pas au type de la chirurgie.');
-	END IF
+	END IF;
 END;
 /
 
