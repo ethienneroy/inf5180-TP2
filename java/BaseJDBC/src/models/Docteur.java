@@ -12,8 +12,9 @@ public class Docteur{
     String Niveau;
     int NbrPatients;
     int NbrMoyenMedicaments;
+    Specialite specialite;
 
-    public Docteur(int matricule, String nomM, String prenomM, int specialite, String ville, String adresse, String niveau, int nbrPatients, int nbrMoyenMedicaments) {
+    public Docteur(int matricule, String nomM, String prenomM, int specialite, String ville, String adresse, String niveau, int nbrPatients, int nbrMoyenMedicaments, Specialite specialite1) {
         Matricule = matricule;
         NomM = nomM;
         PrenomM = prenomM;
@@ -23,5 +24,6 @@ public class Docteur{
         Niveau = niveau;
         NbrPatients = nbrPatients;
         NbrMoyenMedicaments = nbrMoyenMedicaments;
+        this.specialite = specialite1;
     }
 }

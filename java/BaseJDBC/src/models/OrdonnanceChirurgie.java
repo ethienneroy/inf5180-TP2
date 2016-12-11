@@ -4,14 +4,14 @@
  */
 public class OrdonnanceChirurgie{
     int NumOrd;
-    int idChir;
     int Rang;
     Ordonnance ord;
+    Chirurgie chirurgie;
 
-    public OrdonnanceChirurgie(int numOrd, int idChir, int rang, Ordonnance ord) {
+    public OrdonnanceChirurgie(int numOrd, int rang, Ordonnance ord, Chirurgie chirurgie) {
         NumOrd = numOrd;
-        this.idChir = idChir;
         Rang = rang;
         this.ord = ord;
+        this.chirurgie = chirurgie;
     }
 }

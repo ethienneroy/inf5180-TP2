@@ -4,8 +4,18 @@
  */
 public class Chirurgie{
     int idChirurgie;
-    int idType;
-    int idSalle;
-    Date DateChirurgie;
-    Date HeureDebut;
+    TypeChirurgie typeChirurgie;
+    Salle salle;
+    Date dateChirurgie;
+    Date heureDebut;
+    Date heureFin;
+
+    public Chirurgie(int idChirurgie, TypeChirurgie typeChirurgie, Salle salle, Date dateChirurgie, Date heureDebut, Date heureFin) {
+        this.idChirurgie = idChirurgie;
+        this.typeChirurgie = typeChirurgie;
+        this.salle = salle;
+        this.dateChirurgie = dateChirurgie;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
+    }
 }

@@ -4,12 +4,12 @@
  */
 public class SpecialisationSalle{
     Salle salle;
-    int idType;
+    TypeChirurgie typeChirurgie;
     Date DateC;
 
-    public SpecialisationSalle(Salle salle, int idType, Date dateC) {
+    public SpecialisationSalle(Salle salle, TypeChirurgie typeChirurgie, Date dateC) {
         this.salle = salle;
-        this.idType = idType;
+        this.typeChirurgie = typeChirurgie;
         DateC = dateC;
     }
 }
