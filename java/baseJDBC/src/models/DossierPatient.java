@@ -1,8 +1,14 @@
+package models;
+
+import java.util.Date;
+
 /**
  *
  * @author Ethienne Roy ROYE08129209
  */
-public class DossierPatient{
+
+
+class DossierPatient{
     int numDos;
     String nomPatient;
     String prenomPatient;
@@ -24,6 +30,6 @@ public class DossierPatient{
         DateC = dateC;
         this.matricule = matricule;
         this.nbrConsultation = nbrConsultation;
-        Docteur = docteur;
+        docteur = docteur;
     }
 }
