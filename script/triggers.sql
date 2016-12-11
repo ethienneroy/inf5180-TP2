@@ -85,9 +85,10 @@ END;
 
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 
+-- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
 CREATE OR REPLACE TRIGGER nbrConsultation_patient
-AFTER DELETE OR INSERT ON Consultation
+AFTER INSERT OR DELETE ON Consultation
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
@@ -97,38 +98,54 @@ BEGIN
   ELSE
     UPDATE DossierPatient
     SET NbrConsultation = NbrConsultation - 1
-    WHERE DossierPatient.NumDos = :New.NumDos;
+    WHERE DossierPatient.NumDos = :OLD.NumDos;
   END IF;
 END;
 /
 
+-- ****************************************************************************
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
+CREATE OR REPLACE TRIGGER nbrMedicaments_ordonnance
+AFTER INSERT OR DELETE ON OrdonnanceMedicaments
+FOR EACH ROW
+BEGIN
+  IF INSERTING THEN
+    UPDATE Ordonnance
+    SET NbrMedicaments = NbrMedicaments + 1
+    WHERE Ordonnance.NumOrd = :NEW.NumOrd;
+  ELSE
+    UPDATE Ordonnance
+    SET NbrMedicaments = NbrMedicaments - 1
+    WHERE DossierPatient.NumOrd = :OLD.NumOrd;
+  END IF;
+END;
+/
 
 -- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
 -- ****************************************************************************
 --  la modification d'un docteur doit entrainer la modification de ses consultations
-CREATE OR REPLACE TRIGGER cascade_modifie_docteur
-AFTER UPDATE OF Matricule ON Docteur
-FOR EACH ROW
-BEGIN
-  UPDATE Consultation
-  SET CodeDocteur = :NEW.Matricule
-  WHERE CodeDocteur = :OLD.Matricule;
-END;
-/
+-- CREATE OR REPLACE TRIGGER cascade_modifie_docteur
+-- AFTER UPDATE OF Matricule ON Docteur
+-- FOR EACH ROW
+-- BEGIN
+--   UPDATE Consultation
+--   SET CodeDocteur = :NEW.Matricule
+--   WHERE CodeDocteur = :OLD.Matricule;
+-- END;
+-- /
 
 -- ****************************************************************************
 --   La modification d'un patient doit entraîner la modification de ses consultations
-CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
-AFTER UPDATE OF NumDos ON DossierPatient
-FOR EACH ROW
-BEGIN
-  UPDATE Consultation
-  SET NumDos = :NEW.NumDos
-  WHERE NumDos = :OLD.NumDos;
-END;
-/
+-- CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
+-- AFTER UPDATE OF NumDos ON DossierPatient
+-- FOR EACH ROW
+-- BEGIN
+--   UPDATE Consultation
+--   SET NumDos = :NEW.NumDos
+--   WHERE NumDos = :OLD.NumDos;
+-- END;
+-- /
 
 SET ECHO OFF
