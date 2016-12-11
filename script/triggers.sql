@@ -87,7 +87,7 @@ END;
 
 -- nbrConsultation (nombre total de consultations pour un patient),
 CREATE OR REPLACE TRIGGER nbrConsultation_patient
-AFTER UPDATE OR INSERT ON Consultation
+AFTER DELETE OR INSERT ON Consultation
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
