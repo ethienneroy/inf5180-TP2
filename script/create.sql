@@ -69,8 +69,7 @@ CREATE TABLE DossierPatient (
     Matricule INTEGER,
     NbrConsultation INTEGER DEFAULT 0,
     CONSTRAINT dossierPatient_pk PRIMARY KEY(NumDos),
-    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES Docteur
-        ON DELETE SET NULL,
+    CONSTRAINT dossierPatient_docteur_fk FOREIGN KEY(Matricule) REFERENCES Docteur,        
     CONSTRAINT numAS_unique UNIQUE(NumAs),
     CONSTRAINT nbrConsultation_positif CHECK (NbrConsultation >= 0)
 )

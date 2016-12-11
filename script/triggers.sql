@@ -13,7 +13,17 @@
 
 
 SET ECHO ON
-
+-- ****************************************************************************
+-- Triggers pour foreign keys
+CREATE OR REPLACE TRIGGER update_matriculeDocteur_dossierPatient
+AFTER DELETE ON Docteur
+FOR EACH ROW
+BEGIN
+	UPDATE DossierPatient
+	SET DossierPatient.Matricule = :NEW.Matricule
+	WHERE DossierPatient.Matricule = :OLD.Matricule;
+END;
+/
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
