@@ -2,7 +2,7 @@
 --  INF5180-30 –  Base de Donnees 2
 --  Francois Planet PLAF17069100
 --  Mathieu Mathurin MATM05059000
---  Olivier Pinneau
+--  Olivier Pinneau PINO09089300
 --  Ethienne Roy ROYE08129209
 --  Emanuel Gonthier GONE27069202
 -- ==========================================
@@ -111,10 +111,10 @@ INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-01', 'yyyy-mm-dd'), 'mala
 INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 8);
 INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-03', 'yyyy-mm-dd'), 'malade', 9);
 INSERT INTO Consultation VALUES(2, 3, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 10);
-INSERT INTO Consultation VALUES(2, 4, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 11);
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 12);
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-17', 'yyyy-mm-dd'), 'malade', 13);
 
+COMMIT;
 
 SET ECHO OFF
 SET PAGESIZE 30

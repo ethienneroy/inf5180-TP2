@@ -2,7 +2,7 @@
 --  INF5180-30 –  Base de Donnees 2
 --  Francois Planet PLAF17069100
 --  Mathieu Mathurin MATM05059000
---  Olivier Pinneau
+--  Olivier Pinneau PINO09089300
 --  Ethienne Roy
 --  Emanuel Gonthier GONE27069202
 -- ==========================================
