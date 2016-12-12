@@ -23,12 +23,9 @@ FOR EACH ROW
 DECLARE sameDayChirurCount INTEGER;
 BEGIN
 	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
-	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie;
+	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
 	IF sameDayChirurCount > 0 THEN
-		
-	-- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
--- OR :NEW.HeureFin > HeureDebut AND :NEW.HeureFin < HeureFin
-		raise_application_error(-20004, 'Same day chirurgie');
+		raise_application_error(-20004, 'Deux chirurgies ne peuvent etre dans la même salle au meme moment');
 	END IF;
 END;
 /
