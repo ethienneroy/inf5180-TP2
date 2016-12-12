@@ -27,16 +27,17 @@ END;
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
--- CREATE OR REPLACE TRIGGER unique_chir_salle
--- BEFORE INSERT OR UPDATE ON Chirurgie
--- FOR EACH ROW
--- DECLARE
--- selection tous les lignes qvec meme IdSalle et meme DateChirurgie
--- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
--- OR :NEW.HeureFin > HeureDebut AND :NEW.HeureFin < HeureFin
--- BEGIN
- -- raise_application_error(-20004, 'Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.')
-
+CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
+AFTER DELETE ON Docteur
+FOR EACH ROW
+BEGIN
+	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
+	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
+	IF sameDayChirurCount > 0 THEN
+		raise_application_error(-20004, 'Deux chirurgies ne peuvent etre dans la même salle au meme moment');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
