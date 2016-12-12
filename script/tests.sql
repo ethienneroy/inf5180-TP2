@@ -18,70 +18,70 @@ SET ECHO ON
 -- ****************************************************************************
 -- Les données nomP, prenomP, nomM, prenomM, nomMed, nom, titre, et diagnostic doivent toujours être connues.
 INSERT INTO DossierPatient VALUES(6, NULL,'prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO DossierPatient VALUES(6,'nom' , NULL, 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Docteur VALUES(3, NULL,'prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Docteur VALUES(3, 'nom', NULL, 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Medicament VALUES(5, NULL, 2.99, 1);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Salle VALUES(4, NULL);
-ROLLBACK
+ROLLBACK;
 INSERT INTO TypeChirurgie VALUES(4, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Categorie VALUES(3, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Specialite VALUES(4, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), NULL, 13);
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET NomP = NULL
 WHERE NumDos = 6;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET PrenomP = NULL
 WHERE NumDos = 6;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET NomM = NULL
 WHERE Matricule = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET PrenomP = NULL
 WHERE Matricule = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Medicament VALUES(5, 'NomM' , 2.99, 1);
 UPDATE Medicament SET NomM = NULL
 WHERE IdMed = 5;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Salle VALUES(4, 'Nom' );
 UPDATE Salle SET Nom = NULL
 WHERE IdSalle = 4;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO TypeChirurgie VALUES(4, 'Nom' , 'description');
 UPDATE TypeChirurgie SET Nom = NULL
 WHERE IdType = 4;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Categorie VALUES(3, 'Nom', 'description');
 UPDATE Categorie SET Nom = NULL
 WHERE IdCategorie = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Specialite VALUES(4, 'Titre', 'description');
 UPDATE Specialite SET Titre = NULL
 WHERE Code = 4;
-ROLLBACK
+ROLLBACK;
 
 
 -- ****************************************************************************
