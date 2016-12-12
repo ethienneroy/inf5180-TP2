@@ -250,22 +250,7 @@ SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE CodeDocteur = 2;
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 2; 
     DELETE FROM Consultation WHERE CodeDocteur = 2;
-    DELETE FROM DossierPatient WHERE NumDos = 5;
-
--- ****************************************************************************
--- La suppression d'un patient doit entraîner la modification de ses consultations en donnant la valeur nulle au NumDos.
-INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
-INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-INSERT INTO DossierPatient VALUES(5, 'nom','prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), null, 0);
-INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
-
-DELETE FROM DossierPatient WHERE NumDos = 5;
---Il doit y avoir null comme NumDos
-SELECT CodeDocteur, NumDos, DateC FROM Consultation;
---Delete donnees de test
-    DELETE FROM Specialite WHERE Code = 1;
-    DELETE FROM Docteur WHERE Matricule = 1; 
-    DELETE FROM Consultation WHERE CodeDocteur = 1;    
+    DELETE FROM DossierPatient WHERE NumDos = 5;    
 
 -- ****************************************************************************
 -- La modification d'un patient doit entraîner la modification de ses consultations.
