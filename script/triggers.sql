@@ -96,9 +96,9 @@ FOR EACH ROW
 DECLARE ordoCount INTEGER;
 BEGIN
 	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
-	WHERE NumOrd = :New.NumOrd AND Type = 'ORDONNANCECHIRURGIE';
+	WHERE NumOrd = :New.NumOrd AND Type = 'Chirurgie';
 	IF ordoCount = 0 THEN
-		raise_application_error(-20004, 'Une ordonnance chirurgie doit etre associe a une ordonnance de type ORDONNANCECHIRURGIE');
+		raise_application_error(-20004, 'Une ordonnance chirurgie doit etre associe a une ordonnance de type Chirurgie');
 	END IF;
 END;
 /
@@ -109,9 +109,9 @@ FOR EACH ROW
 DECLARE ordoCount INTEGER;
 BEGIN
 	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
-	WHERE NumOrd = :New.NumOrd AND Type = 'ORDONNANCEMEDICAMENTS';
+	WHERE NumOrd = :New.NumOrd AND Type = 'Medicaments';
 	IF ordoCount = 0 THEN
-		raise_application_error(-20004, 'Une ordonnance medicaments doit etre associe a une ordonnance de type ORDONNANCEMEDICAMENTS');
+		raise_application_error(-20004, 'Une ordonnance medicaments doit etre associe a une ordonnance de type Medicaments');
 	END IF;
 END;
 /
@@ -135,7 +135,7 @@ END;
 /
 
 -- ****************************************************************************
--- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
+-- NbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 
 
 -- ****************************************************************************
