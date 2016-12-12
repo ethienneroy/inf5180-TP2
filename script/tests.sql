@@ -190,12 +190,42 @@ INSERT INTO Ordonnance VALUES(14, 'repos', 'Medicaments', TO_DATE('1970-06-07', 
 INSERT INTO OrdonnanceMedicaments VALUES(14, 2, 1);
 ROLLBACK;
 
+--You are here
 -- ****************************************************************************
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
+SELECT Matricule, NbrMoyenMedicaments FROM Docteur;
 
+INSERT INTO Ordonnance VALUES(14, 'Prendre le soir', 'Medicaments', TO_DATE('2016-12-30', 'yyyy-mm-dd'), 5);
+INSERT INTO OrdonnanceMedicaments VALUES(14, 4, 5);
+INSERT INTO Consultation VALUES(5, 1, TO_DATE('2017-12-02', 'yyyy-mm-dd'), 'malade', 14);
 
+SELECT Matricule, NbrMoyenMedicaments FROM Docteur;
 
+SELECT CodeDocteur, NumDos, NumOrd FROM Consultation WHERE CodeDocteur = 5;
 
+ROLLBACK;
+
+-- ****************************************************************************
+-- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
+SELECT Matricule, NbrPatients FROM Docteur;
+
+INSERT INTO DossierPatient VALUES(99, 'Gonth', 'Ema', 'M', 'GONE92062799', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 6);
+--Should have + 1 from previous select
+SELECT Matricule, NbrPatients FROM Docteur;
+
+DELETE FROM DossierPatient WHERE NumDos = 99;
+--Should have - 1 from previous select
+SELECT Matricule, NbrPatients FROM Docteur;
+
+ROLLBACK;
+
+-- ****************************************************************************
+-- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
+--Non Permis
+DELETE FROM Ordonnance WHERE numOrd = 13;
+--Non Permis
+DELETE FROM MEDICAMENT WHERE idMed = 1;
+ROLLBACK;
 
 -- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
@@ -259,7 +289,6 @@ SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE CodeDocteur = 4;
 --Delete donnees de test
 ROLLBACK;   
 
---You are here
 -- ****************************************************************************
 -- La modification d'un patient doit entraîner la modification de ses consultations.
 INSERT INTO Specialite VALUES(4, 'Elfe des bois', 'Vous ne passerez pas');
@@ -272,9 +301,6 @@ UPDATE DossierPatient SET NumDos = 7 WHERE NumDos = 6;
 SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE NumDos = 7;
 --Delete donnees de test
 ROLLBACK;
-
--- ****************************************************************************
--- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
 
 SET ECHO OFF
