@@ -201,7 +201,27 @@ SELECT NumDos, NbrConsultation FROM DossierPatient WHERE NbrConsultation = 1;
     DELETE FROM DossierPatient WHERE NumDos = 5;
 -- ****************************************************************************
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
+INSERT INTO Categorie VALUES(1, 'Happy Pills', 'Creer du bonheur');
+INSERT INTO Ordonnance VALUES(2, 'Prendre le soir', 'Medicaments', TO_DATE('2016-12-30', 'yyyy-mm-dd'), 0);
+INSERT INTO Medicament VALUES(3, 'Viagra', 1200, 1);
+INSERT INTO Medicament VALUES(4, 'Tylenol', 12, 1);
+INSERT INTO OrdonnanceMedicaments VALUES(2, 3, 5);
+--Il doit y avoir 1 nbrMedicament
+SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
 
+INSERT INTO OrdonnanceMedicaments VALUES(2, 4, 15);
+--Il doit y avoir 2 nbrMedicament
+SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
+
+DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 4;
+--Il doit y avoir 1 nbrMedicament 
+INSERT INTO OrdonnanceMedicaments VALUES(2, 4, 15);
+
+--Delete donnees de test
+DELETE FROM Categorie WHERE IdCategorie = 1;
+DELETE FROM Ordonnance WHERE NumOrd = 2;
+DELETE FROM Medicament WHERE IdMed = 3 OR IdMed = 4;
+DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 3;
 -- ****************************************************************************
 -- La suppression d'un docteur doit entraîner la suppression de ses consultations.
 INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
@@ -264,7 +284,7 @@ SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE NumDos = 6;
     DELETE FROM DossierPatient WHERE NumDos = 6;
 
 
-
+-- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
 
