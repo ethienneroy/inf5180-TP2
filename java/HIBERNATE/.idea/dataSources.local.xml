@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Oracle - @zeta2.labunix.uqam.ca" uuid="d3c97433-04fc-44a2-8dc7-c015546eddf1">
+      <secret-storage>master_key</secret-storage>
+      <user-name>kg191182</user-name>
+    </data-source>
+  </component>
+</project>

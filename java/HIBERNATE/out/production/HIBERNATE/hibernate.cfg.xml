@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:oracle:thin:@//zeta2.labunix.uqam.ca:1521/BACLAB</property>
+        <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+        <property name="connection.username">kg191182</property>
+        <property name="connection.password">NgkxSWnk</property>
+        <mapping class="entity.Categorie"/>
+        <mapping class="entity.Chirurgie"/>
+        <mapping class="entity.Consultation"/>
+        <mapping class="entity.Docteur"/>
+        <mapping class="entity.Dossierpatient"/>
+        <mapping class="entity.Medicament"/>
+        <mapping class="entity.Ordonnance"/>
+        <mapping class="entity.Ordonnancechirurgie"/>
+        <mapping class="entity.Ordonnancemedicaments"/>
+        <mapping class="entity.Salle"/>
+        <mapping class="entity.Specialisationssalle"/>
+        <mapping class="entity.Specialite"/>
+        <mapping class="entity.Typechirurgie"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
