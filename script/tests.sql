@@ -86,15 +86,13 @@ ROLLBACK
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
-INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
-INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:30:00', '17:30:00');
-ROLLBACK
+INSERT INTO Chirurgie VALUES(1, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 16:00:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 17:00:00', 'yyyy-mm-dd hh24:mi:ss'));
+--Permis
+INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 17:10:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 17:20:00', 'yyyy-mm-dd hh24:mi:ss'));
+DELETE FROM Chirurgie WHERE IdChirurgie = 2;
+--Non Permis
+INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 16:30:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 17:20:00', 'yyyy-mm-dd hh24:mi:ss'));
 
-INSERT INTO Chirurgie VALUES(7, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '16:00:00', '17:00:00');
-INSERT INTO Chirurgie VALUES(8, 1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), '18:00:00', '19:00:00');
-UPDATE Chirurgie SET HeureDebut = '16:30:00'
-WHERE IdChirurgie = 8;
-ROLLBACK
 
 -- ****************************************************************************
 -- Toutes les valeurs (nbBoites, prix, etc.) ont une valeur par défaut à 0 et prennent des valeurs positives.

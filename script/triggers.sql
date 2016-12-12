@@ -27,16 +27,17 @@ END;
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
--- CREATE OR REPLACE TRIGGER unique_chir_salle
--- BEFORE INSERT OR UPDATE ON Chirurgie
--- FOR EACH ROW
--- DECLARE
--- selection tous les lignes qvec meme IdSalle et meme DateChirurgie
--- si :NEW.HeureDebut > HeureDebut autre AND :NEW.HeureDebut < HeureFin
--- OR :NEW.HeureFin > HeureDebut AND :NEW.HeureFin < HeureFin
--- BEGIN
- -- raise_application_error(-20004, 'Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.')
-
+CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
+AFTER DELETE ON Docteur
+FOR EACH ROW
+BEGIN
+	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
+	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
+	IF sameDayChirurCount > 0 THEN
+		raise_application_error(-20004, 'Deux chirurgies ne peuvent etre dans la même salle au meme moment');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
@@ -88,15 +89,34 @@ END;
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
+
+
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
+CREATE OR REPLACE TRIGGER nbrPatients_Docteur
+AFTER INSERT OR DELETE ON DossierPatient
+FOR EACH ROW
+BEGIN
+	IF inserting THEN
+	UPDATE Docteur
+	SET NbrPatients = NbrPatients + 1
+	WHERE Docteur.Matricule = :NEW.Matricule;
+	ELSE
+	UPDATE Docteur
+	SET NbrPatients = NbrPatients - 1
+	WHERE Docteur.Matricule = :OLD.Matricule;
+	END IF;
+END;
+/
 
-
+-- ****************************************************************************
 -- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 
+
+-- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
 CREATE OR REPLACE TRIGGER nbrConsultation_patient
-AFTER DELETE OR INSERT ON Consultation
+AFTER INSERT OR DELETE ON Consultation
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
@@ -106,16 +126,54 @@ BEGIN
   ELSE
     UPDATE DossierPatient
     SET NbrConsultation = NbrConsultation - 1
-    WHERE DossierPatient.NumDos = :New.NumDos;
+    WHERE DossierPatient.NumDos = :OLD.NumDos;
   END IF;
 END;
 /
 
 -- nbrMedicaments (nombre de medicaments differents – pas les boîtes- pour une unique ordonnance).
-
+CREATE OR REPLACE TRIGGER nbrMedicaments_ordonnance
+AFTER INSERT OR DELETE ON OrdonnanceMedicaments
+FOR EACH ROW
+BEGIN
+  IF INSERTING THEN
+    UPDATE Ordonnance
+    SET NbrMedicaments = NbrMedicaments + 1
+    WHERE Ordonnance.NumOrd = :NEW.NumOrd;
+  ELSE
+    UPDATE Ordonnance
+    SET NbrMedicaments = NbrMedicaments - 1
+    WHERE DossierPatient.NumOrd = :OLD.NumOrd;
+  END IF;
+END;
+/
 -- ****************************************************************************
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
+CREATE OR REPLACE TRIGGER modif_Ord
+BEFORE UPDATE OR DELETE ON Ordonnance
+FOR EACH ROW
+DECLARE consulCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO consulCount FROM Consultation
+	WHERE NumOrd = :New.NumOrd;
+	IF consulCount > 0 THEN
+		raise_application_error(-20004, 'Une ordonnace ne peut etre modifié ou supprimé lorsquelle est reference dans une consultation');
+	END IF;
+END;
+/
 
+CREATE OR REPLACE TRIGGER modif_Med
+BEFORE UPDATE OR DELETE ON Medicament
+FOR EACH ROW
+DECLARE OrdCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO OrdCount FROM OrdonnanceMedicaments
+	WHERE IdMed = :New.IdMed;
+	IF OrdCount > 0 THEN
+		raise_application_error(-20004, 'Une medicament ne peut etre modifié ou supprimé lorsquelle est reference dans une ordonnance');
+	END IF;
+END;
+/
 -- ****************************************************************************
 --  la modification d'un docteur doit entrainer la modification de ses consultations
 CREATE OR REPLACE TRIGGER cascade_modifie_docteur
