@@ -19,9 +19,11 @@ CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
 AFTER DELETE ON Docteur
 FOR EACH ROW
 BEGIN
-	UPDATE DossierPatient
-	SET DossierPatient.Matricule = :NEW.Matricule
-	WHERE DossierPatient.Matricule = :OLD.Matricule;
+	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
+	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
+	IF sameDayChirurCount > 0 THEN
+		raise_application_error(-20004, 'Deux chirurgies ne peuvent etre dans la même salle au meme moment');
+	END IF;
 END;
 /
 
