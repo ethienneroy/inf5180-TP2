@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1127228274">
+    <data-source source="LOCAL" name="Oracle - @zeta2.labunix.uqam.ca" uuid="716e69a1-f00c-48f4-8b85-c7c3df78d29b">
+      <driver-ref>oracle</driver-ref>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//zeta2.labunix.uqam.ca:1521/BACLAB</jdbc-url>
+    </data-source>
+  </component>
+</project>

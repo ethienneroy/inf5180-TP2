@@ -18,8 +18,6 @@ import java.sql.*;
 
 public class BaseJDBC {
 
-    private static String user = "inf5180";
-    static final String DB_URL = "jdbc:oracle:thin@74.208.82.123:1521:BACLAB";
     /**
      * @param args the command line arguments
      */
@@ -34,7 +32,7 @@ public class BaseJDBC {
             //STEP 3: Ouvrir une connexion
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection("jdbc:oracle:thin:@zeta2.labunix.uqam.ca:1521:BACLAB",
-            "kg191182", "NgkxSWnk");
+            args[0],args[1]);
 
             //STEP 4: Executer une requete
             System.out.println("Creating statement...");
