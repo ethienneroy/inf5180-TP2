@@ -56,7 +56,7 @@ INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-06', 'yyyy-mm-dd'), 'mala
 INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-07', 'yyyy-mm-dd'), 'malade', 6);
 INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 7);
 INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-01', 'yyyy-mm-dd'), 'malade', 8);
-INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 9);
+INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-03', 'yyyy-mm-dd'), 'malade', 9);
 INSERT INTO Consultation VALUES(2, 3, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 10);
 INSERT INTO Consultation VALUES(2, 4, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 11);
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 12);
