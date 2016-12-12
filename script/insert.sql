@@ -81,7 +81,6 @@ INSERT INTO SpecialisationsSalle VALUES(3, 1, TO_DATE('2016-12-12', 'yyyy-mm-dd'
 INSERT INTO SpecialisationsSalle VALUES(1, 3, TO_DATE('2016-12-10', 'yyyy-mm-dd'));
 INSERT INTO SpecialisationsSalle VALUES(2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'));
 
-
 -- INSERT INTO Chirurgie VALUES( idChir, idType, idSalle, dateChirurgie, HeureDebut, HeureFin);
 INSERT INTO Chirurgie VALUES(1, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 16:00:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 17:00:00', 'yyyy-mm-dd hh24:mi:ss'));
 INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
@@ -89,16 +88,6 @@ INSERT INTO Chirurgie VALUES(3, 2, 2, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DA
 INSERT INTO Chirurgie VALUES(4, 3, 1, TO_DATE('2016-12-12', 'yyyy-mm-dd'), TO_DATE('2016-12-12 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-12 13:00:00', 'yyyy-mm-dd hh24:mi:ss'));
 INSERT INTO Chirurgie VALUES(5, 1, 3, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
 INSERT INTO Chirurgie VALUES(6, 2, 3, TO_DATE('2016-12-11', 'yyyy-mm-dd'), TO_DATE('2016-12-11 17:01:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-11 18:01:00', 'yyyy-mm-dd hh24:mi:ss'));
-
-
--- INSERT INTO OrdonnanceChirurgie VALUES(numOrd, idChir, rang);
-INSERT INTO OrdonnanceChirurgie VALUES(3, 1, 1);
-INSERT INTO OrdonnanceChirurgie VALUES(4, 1, 2);
-INSERT INTO OrdonnanceChirurgie VALUES(5, 2, 1);
-INSERT INTO OrdonnanceChirurgie VALUES(6, 3, 1);
-INSERT INTO OrdonnanceChirurgie VALUES(8, 4, 1);
-INSERT INTO OrdonnanceChirurgie VALUES(12, 5, 1);
-INSERT INTO OrdonnanceChirurgie VALUES(13, 6, 1);
 
 
 -- INSERT INTO Categorie VALUES(IdCategorie, nom, Description);
@@ -111,17 +100,52 @@ INSERT INTO Medicament VALUES(2, 'viagra', 99.99, 2);
 INSERT INTO Medicament VALUES(3, 'ibuprofene', 4.30, 1);
 INSERT INTO Medicament VALUES(4, 'tylenole', 2.99, 2);
 
+-- INSERT INTO Ordonnance VALUES(numOrd, recommandations, type, dateC, nbrMedicaments);
+INSERT INTO Ordonnance VALUES(1, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 20);
+INSERT INTO Ordonnance VALUES(2, 'repos', 'Medicaments', TO_DATE('2016-12-03', 'yyyy-mm-dd'), 9);
+INSERT INTO Ordonnance VALUES(3, 'repos', 'Medicaments', TO_DATE('2016-12-04', 'yyyy-mm-dd'), 3);
+INSERT INTO Ordonnance VALUES(4, 'repos', 'Medicaments', TO_DATE('2016-12-05', 'yyyy-mm-dd'), 5);
+INSERT INTO Ordonnance VALUES(5, 'repos', 'Chirurgie', TO_DATE('2016-12-06', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(6, 'repos', 'Chirurgie', TO_DATE('2016-12-07', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(7, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 7);
+INSERT INTO Ordonnance VALUES(8, 'repos', 'Chirurgie', TO_DATE('2016-12-01', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(9, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 10);
+INSERT INTO Ordonnance VALUES(10, 'repos', 'Medicaments', TO_DATE('2016-12-02', 'yyyy-mm-dd'), 4);
+INSERT INTO Ordonnance VALUES(11, 'repos', 'Medicaments', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 2);
+INSERT INTO Ordonnance VALUES(12, 'repos', 'Chirurgie', TO_DATE('2016-12-24', 'yyyy-mm-dd'), 0);
+INSERT INTO Ordonnance VALUES(13, 'repos', 'Chirurgie', TO_DATE('2016-12-17', 'yyyy-mm-dd'), 0);
+
+-- INSERT INTO OrdonnanceChirurgie VALUES(numOrd, idChir, rang);
+INSERT INTO OrdonnanceChirurgie VALUES(5, 1, 1);
+INSERT INTO OrdonnanceChirurgie VALUES(6, 1, 2);
+INSERT INTO OrdonnanceChirurgie VALUES(8, 2, 1);
+INSERT INTO OrdonnanceChirurgie VALUES(12, 3, 1);
+INSERT INTO OrdonnanceChirurgie VALUES(13, 4, 1);
+
 -- INSERT INTO OrdonnanceMedicaments VALUES(numOrd, idMed, nbBoites);
 INSERT INTO OrdonnanceMedicaments VALUES(1, 1, 10);
-INSERT INTO OrdonnanceMedicaments VALUES(1, 2, 5);
-INSERT INTO OrdonnanceMedicaments VALUES(1, 3, 5);
-INSERT INTO OrdonnanceMedicaments VALUES(2, 1, 9);
-INSERT INTO OrdonnanceMedicaments VALUES(3, 1, 3);
-INSERT INTO OrdonnanceMedicaments VALUES(4, 1, 5);
-INSERT INTO OrdonnanceMedicaments VALUES(7, 1, 7);
-INSERT INTO OrdonnanceMedicaments VALUES(9, 2, 10);
-INSERT INTO OrdonnanceMedicaments VALUES(10, 1, 4);
-INSERT INTO OrdonnanceMedicaments VALUES(11, 3, 2);
+INSERT INTO OrdonnanceMedicaments VALUES(2, 2, 5);
+INSERT INTO OrdonnanceMedicaments VALUES(3, 3, 5);
+INSERT INTO OrdonnanceMedicaments VALUES(4, 1, 9);
+INSERT INTO OrdonnanceMedicaments VALUES(7, 1, 3);
+INSERT INTO OrdonnanceMedicaments VALUES(9, 1, 5);
+INSERT INTO OrdonnanceMedicaments VALUES(10, 1, 7);
+INSERT INTO OrdonnanceMedicaments VALUES(11, 2, 10);
+
+-- INSERT INTO Consultation VALUES(CodeDocteur, numDos, dateC, diagnostic, numOrd);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 1);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-03', 'yyyy-mm-dd'), 'malade', 2);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-04', 'yyyy-mm-dd'), 'malade', 3);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-05', 'yyyy-mm-dd'), 'malade', 4);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-06', 'yyyy-mm-dd'), 'malade', 5);
+INSERT INTO Consultation VALUES(1, 1, TO_DATE('2016-12-07', 'yyyy-mm-dd'), 'malade', 6);
+INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-01', 'yyyy-mm-dd'), 'malade', 7);
+INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 8);
+INSERT INTO Consultation VALUES(1, 2, TO_DATE('2016-12-03', 'yyyy-mm-dd'), 'malade', 9);
+INSERT INTO Consultation VALUES(2, 3, TO_DATE('2016-12-02', 'yyyy-mm-dd'), 'malade', 10);
+INSERT INTO Consultation VALUES(2, 4, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 11);
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-24', 'yyyy-mm-dd'), 'malade', 12);
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-17', 'yyyy-mm-dd'), 'malade', 13);
 
 
 SET ECHO OFF
