@@ -77,7 +77,7 @@ CREATE TABLE DossierPatient (
 CREATE TABLE Ordonnance (
     NumOrd INTEGER NOT NULL,
     Recommandantions VARCHAR(200),
-    Type VARCHAR(20),
+    Type VARCHAR(25),
     DateC DATE,
     NbrMedicaments NUMBER(5) DEFAULT 0,
     CONSTRAINT ordonnance_pk PRIMARY KEY(NumOrd),

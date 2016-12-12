@@ -27,9 +27,10 @@ END;
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
-CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
-AFTER DELETE ON Docteur
+CREATE OR REPLACE TRIGGER unique_chirur_salle
+BEFORE INSERT OR UPDATE ON Chirurgie
 FOR EACH ROW
+DECLARE sameDayChirurCount INTEGER;
 BEGIN
 	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
 	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
@@ -89,7 +90,31 @@ END;
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
+CREATE OR REPLACE TRIGGER verif_type_ordoChi
+BEFORE UPDATE OR INSERT ON OrdonnanceChirurgie
+FOR EACH ROW
+DECLARE ordoCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
+	WHERE NumOrd = :New.NumOrd AND Type = 'ORDONNANCECHIRURGIE';
+	IF ordoCount = 0 THEN
+		raise_application_error(-20004, 'Une ordonnance chirurgie doit etre associe a une ordonnance de type ORDONNANCECHIRURGIE');
+	END IF;
+END;
+/
 
+CREATE OR REPLACE TRIGGER verif_type_ordoMed
+BEFORE UPDATE OR INSERT ON OrdonnanceMedicaments
+FOR EACH ROW
+DECLARE ordoCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
+	WHERE NumOrd = :New.NumOrd AND Type = 'ORDONNANCEMEDICAMENTS';
+	IF ordoCount = 0 THEN
+		raise_application_error(-20004, 'Une ordonnance medicaments doit etre associe a une ordonnance de type ORDONNANCEMEDICAMENTS');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
@@ -143,7 +168,7 @@ BEGIN
   ELSE
     UPDATE Ordonnance
     SET NbrMedicaments = NbrMedicaments - 1
-    WHERE DossierPatient.NumOrd = :OLD.NumOrd;
+    WHERE Ordonnance.NumOrd = :OLD.NumOrd;
   END IF;
 END;
 /
