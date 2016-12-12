@@ -27,9 +27,10 @@ END;
 
 -- ****************************************************************************
 -- Il ne peut pas y avoir deux chirurgies pour une même salle qui se chevauche dans la plage horaire.
-CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
-AFTER DELETE ON Docteur
+CREATE OR REPLACE TRIGGER unique_chirur_salle
+BEFORE INSERT OR UPDATE ON Chirurgie
 FOR EACH ROW
+DECLARE sameDayChirurCount INTEGER;
 BEGIN
 	SELECT COUNT(*) INTO sameDayChirurCount FROM Chirurgie
 	WHERE IdSalle = :NEW.IdSalle AND DateChirurgie = :NEW.DateChirurgie AND (:NEW.HeureDebut - HeureFin) * 24 * 60 < 0;
@@ -66,7 +67,7 @@ END;
 CREATE OR REPLACE TRIGGER verif_type_ordonnance
 BEFORE UPDATE OR INSERT OF Type ON Ordonnance
 FOR EACH ROW
-WHEN (NEW.Type != 'Chirurgie' AND NEW.Type != 'Medicaments')
+WHEN (:NEW.Type != 'Chirurgie' AND :NEW.Type != 'Medicaments')
 BEGIN
 		raise_application_error(-20003, 'Les types autorisés sont : Chirurgie ou Médicaments.');
 END;
@@ -89,7 +90,31 @@ END;
 
 -- ****************************************************************************
 -- Le détail de l’ordonnance (ORDONNANCECHIRURGIE ou ORDONNANCEMEDICAMENTS) doit correspondre au type d’ordonnance.
+CREATE OR REPLACE TRIGGER verif_type_ordoChi
+BEFORE UPDATE OR INSERT ON OrdonnanceChirurgie
+FOR EACH ROW
+DECLARE ordoCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
+	WHERE NumOrd = :New.NumOrd AND Type = 'Chirurgie';
+	IF ordoCount = 0 THEN
+		raise_application_error(-20004, 'Une ordonnance chirurgie doit etre associe a une ordonnance de type Chirurgie');
+	END IF;
+END;
+/
 
+CREATE OR REPLACE TRIGGER verif_type_ordoMed
+BEFORE UPDATE OR INSERT ON OrdonnanceMedicaments
+FOR EACH ROW
+DECLARE ordoCount INTEGER;
+BEGIN
+	SELECT COUNT(*) INTO ordoCount FROM Ordonnance
+	WHERE NumOrd = :New.NumOrd AND Type = 'Medicaments';
+	IF ordoCount = 0 THEN
+		raise_application_error(-20004, 'Une ordonnance medicaments doit etre associe a une ordonnance de type Medicaments');
+	END IF;
+END;
+/
 
 -- ****************************************************************************
 -- Les nbrPatients (nombre de patients d’un docteur à titre de médecin traitant),
@@ -110,7 +135,7 @@ END;
 /
 
 -- ****************************************************************************
--- nbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
+-- NbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
 
 
 -- ****************************************************************************
@@ -183,6 +208,18 @@ BEGIN
   UPDATE Consultation
   SET CodeDocteur = :NEW.Matricule
   WHERE CodeDocteur = :OLD.Matricule;
+END;
+/
+
+-- ****************************************************************************
+--   La modification d'un patient doit entraîner la modification de ses consultations
+CREATE OR REPLACE TRIGGER cascade_modifie_dossierPatient
+AFTER UPDATE OF NumDos ON DossierPatient
+FOR EACH ROW
+BEGIN
+  UPDATE Consultation
+  SET NumDos = :NEW.NumDos
+  WHERE NumDos = :OLD.NumDos;
 END;
 /
 
