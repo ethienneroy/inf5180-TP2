@@ -26,7 +26,7 @@ public class BaseJDBC {
     public static void main(String[] args) {
         // TODO code application logic here
         Connection conn = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         try{
             //STEP 2: enregistrement du  driver JDBC
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
@@ -38,46 +38,25 @@ public class BaseJDBC {
 
             //STEP 4: Executer une requete
             System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM Medicament";
-            ResultSet rs = stmt.executeQuery(sql);
+
+//            String sql = "select docteur.matricule, docteur.nomM,docteur.prenomM,count(consultation.dateC) as numberConsultation from docteur left join consultation on docteur.matricule = consultation.codedocteur group by docteur.matricule,docteur.prenomM,docteur.nomM";
+            String sql = "select docteur.matricule, docteur.nomM,docteur.prenomM,count(consultation.dateC) as numberConsultation from docteur left join consultation on docteur.matricule = consultation.codedocteur group by docteur.matricule,docteur.prenomM,docteur.nomM order by docteur.nomM";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs;
+            rs = stmt.executeQuery();
 
             //STEP 5: Extraction des  donnees du result set
             while(rs.next()){
-                //Retrouver  par le nom de la colonne
-                int id  = rs.getInt("idMed");
-                String name = rs.getString("nommed");
-//                String phone = rs.getString("notelephone");
+                int id  = rs.getInt(1);
+                String name = rs.getString(2);
+                String prenom = rs.getString(3);
+                int consults = rs.getInt(4);
 
                 //Afficher les valeurs
-                System.out.print("ID: " + id);
-                System.out.print(", Name: " + name);
-//                System.out.println(", Phone: " + phone);
+                System.out.print("Matricule: " + id);
+                System.out.print(", Prenom: " + prenom);
+                System.out.println(", Nom: " + name);
             }
-
-//            - Afficher le nombre de consultations par docteurs ou afficher le nombre de consultations
-//            par spécialité.
-
-            //STEP 6: Executer un Update - Insert
-
-
-
-//            sql = "insert into client values(5,'zaier','51455555555')";
-//            int number = stmt.executeUpdate(sql);
-//            System.out.println(" the change 1: " + number);
-//
-//            //STEP 7: Executer un Update - Update
-//            sql = "update client set notelephone ='9999999999’ where noclient=5";
-//            number = stmt.executeUpdate(sql);
-//            System.out.println(" the change 2: " + number);
-//
-//            //STEP 8: Executer un Update - Delete
-//            sql = "Delete from client where noclient=5";
-//            number = stmt.executeUpdate(sql);
-//            System.out.println(" the change 3: " + number);
-
-            //STEP 9: Clean-up de l'environnementement
             rs.close();
             stmt.close();
             conn.close();
@@ -88,8 +67,6 @@ public class BaseJDBC {
             //Gerer les erreur pour  Class.forName
             e.printStackTrace();
         }
-
-        System.out.println("Goodbye!");
 
     }
 
