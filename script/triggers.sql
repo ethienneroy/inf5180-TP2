@@ -67,9 +67,9 @@ END;
 CREATE OR REPLACE TRIGGER verif_type_ordonnance
 BEFORE UPDATE OR INSERT OF Type ON Ordonnance
 FOR EACH ROW
-WHEN (:NEW.Type != 'Chirurgie' AND :NEW.Type != 'Medicaments')
+WHEN (NEW.Type != 'Chirurgie' AND NEW.Type != 'Medicaments')
 BEGIN
-		raise_application_error(-20003, 'Les types autorisés sont : Chirurgie ou Médicaments.');
+	raise_application_error(-20003, 'Les types autorisés sont : Chirurgie ou Médicaments.');
 END;
 /
 
@@ -136,7 +136,15 @@ END;
 
 -- ****************************************************************************
 -- NbrMoyenMedicaments (nombre moyen de médicaments prescrits par un docteur),
-
+CREATE OR REPLACE TRIGGER nbrMoyenMedicaments
+AFTER INSERT OR UPDATE ON Consultation
+FOR EACH ROW
+BEGIN	
+	UPDATE Docteur
+    SET NbrMoyenMedicaments = (SELECT AVG(NbrMedicaments) from Ordonnance where Ordonnance.NumOrd = :NEW.NumOrd)
+    WHERE Docteur.Matricule = :NEW.CodeDocteur;	
+END;
+/
 
 -- ****************************************************************************
 -- nbrConsultation (nombre total de consultations pour un patient),
