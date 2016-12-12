@@ -227,7 +227,7 @@ INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal 
 
 UPDATE Docteur SET Matricule = 2 WHERE Matricule = 1;
 -- IL doit y avoir 1 consultation
-SELECT * FROM Consultation WHERE CodeDocteur = 2;
+SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE CodeDocteur = 2;
 --Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 2; 
@@ -243,7 +243,7 @@ INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal 
 
 DELETE FROM DossierPatient WHERE NumDos = 6;
 --Il doit y avoir null comme NumDos
-SELECT * FROM Consultation
+SELECT CodeDocteur, NumDos, DateC FROM Consultation
 --Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 1; 
@@ -258,7 +258,7 @@ INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal 
 
 UPDATE DossierPatient SET NumDos = 6 WHERE NumDos = 5;
 -- IL doit y avoir 1 consultation
-SELECT * FROM Consultation WHERE NumDos = 6;
+SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE NumDos = 6;
 --Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 1; 
