@@ -124,10 +124,11 @@ ROLLBACK
 
 -- ****************************************************************************
 -- Le champ sexe peut avoir uniquement les valeurs ‘F’ et ‘M’.
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'D', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
+--Permis
+INSERT INTO DossierPatient VALUES(1,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
-
-INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', NULL, 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
+--Non Permis
+INSERT INTO DossierPatient VALUES(2,'nom', 'prenom', NULL, 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 ROLLBACK
 
 -- ****************************************************************************
