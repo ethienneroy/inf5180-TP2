@@ -67,7 +67,7 @@ END;
 CREATE OR REPLACE TRIGGER verif_type_ordonnance
 BEFORE UPDATE OR INSERT OF Type ON Ordonnance
 FOR EACH ROW
-WHEN (NEW.Type != 'Chirurgie' AND NEW.Type != 'Medicaments')
+WHEN (:NEW.Type != 'Chirurgie' AND :NEW.Type != 'Medicaments')
 BEGIN
 		raise_application_error(-20003, 'Les types autorisés sont : Chirurgie ou Médicaments.');
 END;
