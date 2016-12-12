@@ -18,70 +18,70 @@ SET ECHO ON
 -- ****************************************************************************
 -- Les données nomP, prenomP, nomM, prenomM, nomMed, nom, titre, et diagnostic doivent toujours être connues.
 INSERT INTO DossierPatient VALUES(6, NULL,'prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO DossierPatient VALUES(6,'nom' , NULL, 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Docteur VALUES(3, NULL,'prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Docteur VALUES(3, 'nom', NULL, 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Medicament VALUES(5, NULL, 2.99, 1);
-ROLLBACK
+ROLLBACK;
 INSERT INTO Salle VALUES(4, NULL);
-ROLLBACK
+ROLLBACK;
 INSERT INTO TypeChirurgie VALUES(4, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Categorie VALUES(3, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Specialite VALUES(4, NULL, 'description');
-ROLLBACK
+ROLLBACK;
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), NULL, 13);
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET NomP = NULL
 WHERE NumDos = 6;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO DossierPatient VALUES(6,'nom', 'prenom', 'M', 'GONE90101012', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
 UPDATE DossierPatient SET PrenomP = NULL
 WHERE NumDos = 6;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET NomM = NULL
 WHERE Matricule = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Docteur VALUES(3, 'nom', 'prenom', 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 UPDATE Docteur SET PrenomP = NULL
 WHERE Matricule = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Medicament VALUES(5, 'NomM' , 2.99, 1);
 UPDATE Medicament SET NomM = NULL
 WHERE IdMed = 5;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Salle VALUES(4, 'Nom' );
 UPDATE Salle SET Nom = NULL
 WHERE IdSalle = 4;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO TypeChirurgie VALUES(4, 'Nom' , 'description');
 UPDATE TypeChirurgie SET Nom = NULL
 WHERE IdType = 4;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Categorie VALUES(3, 'Nom', 'description');
 UPDATE Categorie SET Nom = NULL
 WHERE IdCategorie = 3;
-ROLLBACK
+ROLLBACK;
 
 INSERT INTO Specialite VALUES(4, 'Titre', 'description');
 UPDATE Specialite SET Titre = NULL
 WHERE Code = 4;
-ROLLBACK
+ROLLBACK;
 
 
 -- ****************************************************************************
@@ -214,13 +214,13 @@ SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
 
 DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 4;
 --Il doit y avoir 1 nbrMedicament 
-INSERT INTO OrdonnanceMedicaments VALUES(2, 4, 15);
+SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
 
 --Delete donnees de test
-DELETE FROM Categorie WHERE IdCategorie = 1;
-DELETE FROM Ordonnance WHERE NumOrd = 2;
-DELETE FROM Medicament WHERE IdMed = 3 OR IdMed = 4;
 DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 3;
+DELETE FROM Medicament WHERE IdMed = 3 OR IdMed = 4;
+DELETE FROM Ordonnance WHERE NumOrd = 2;
+DELETE FROM Categorie WHERE IdCategorie = 1;
 -- ****************************************************************************
 -- La suppression d'un docteur doit entraîner la suppression de ses consultations.
 INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
@@ -249,22 +249,7 @@ SELECT CodeDocteur, NumDos, DateC FROM Consultation WHERE CodeDocteur = 2;
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 2; 
     DELETE FROM Consultation WHERE CodeDocteur = 2;
-    DELETE FROM DossierPatient WHERE NumDos = 5;
-
--- ****************************************************************************
--- La suppression d'un patient doit entraîner la modification de ses consultations en donnant la valeur nulle au NumDos.
-INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
-INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
-INSERT INTO DossierPatient VALUES(5, 'nom','prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), null, 0);
-INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
-
-DELETE FROM DossierPatient WHERE NumDos = 5;
---Il doit y avoir null comme NumDos
-SELECT CodeDocteur, NumDos, DateC FROM Consultation;
---Delete donnees de test
-    DELETE FROM Specialite WHERE Code = 1;
-    DELETE FROM Docteur WHERE Matricule = 1; 
-    DELETE FROM Consultation WHERE CodeDocteur = 1;    
+    DELETE FROM DossierPatient WHERE NumDos = 5;    
 
 -- ****************************************************************************
 -- La modification d'un patient doit entraîner la modification de ses consultations.
