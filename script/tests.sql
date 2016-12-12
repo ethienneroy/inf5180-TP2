@@ -93,7 +93,6 @@ DELETE FROM Chirurgie WHERE IdChirurgie = 2;
 --Non Permis
 INSERT INTO Chirurgie VALUES(2, 1, 1, TO_DATE('2016-12-10', 'yyyy-mm-dd'), TO_DATE('2016-12-10 16:30:00', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2016-12-10 17:20:00', 'yyyy-mm-dd hh24:mi:ss'));
 
-
 -- ****************************************************************************
 -- Toutes les valeurs (nbBoites, prix, etc.) ont une valeur par défaut à 0 et prennent des valeurs positives.
 INSERT INTO OrdonnanceMedicaments VALUES(12, 3, -10);
