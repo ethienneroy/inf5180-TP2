@@ -86,15 +86,14 @@ CREATE TABLE Ordonnance (
 /
 CREATE TABLE Consultation (
 	CodeDocteur INTEGER NOT NULL,
-	NumDos INTEGER,
+	NumDos INTEGER NOT NULL,
 	DateC DATE NOT NULL,
 	Diagnostic VARCHAR(200) NOT NULL,
 	NumOrd INTEGER,
 	CONSTRAINT consultation_pk PRIMARY KEY(CodeDocteur, NumDos, DateC),
 	CONSTRAINT consultation_docteur_fk FOREIGN KEY(CodeDocteur) REFERENCES Docteur
         ON DELETE CASCADE,
-	CONSTRAINT consultation_patient_fk FOREIGN KEY(NumDos) REFERENCES DossierPatient
-        ON DELETE SET NULL,
+	CONSTRAINT consultation_patient_fk FOREIGN KEY(NumDos) REFERENCES DossierPatient,
 	CONSTRAINT consultation_ordonnance_fk FOREIGN KEY(NumOrd) REFERENCES Ordonnance
 )
 /
