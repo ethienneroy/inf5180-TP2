@@ -215,13 +215,13 @@ SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
 
 DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 4;
 --Il doit y avoir 1 nbrMedicament 
-INSERT INTO OrdonnanceMedicaments VALUES(2, 4, 15);
+SELECT NumOrd, NbrMedicaments FROM Ordonnance WHERE NumOrd = 2;
 
 --Delete donnees de test
-DELETE FROM Categorie WHERE IdCategorie = 1;
-DELETE FROM Ordonnance WHERE NumOrd = 2;
-DELETE FROM Medicament WHERE IdMed = 3 OR IdMed = 4;
 DELETE FROM OrdonnanceMedicaments WHERE NumOrd = 2 AND IdMed = 3;
+DELETE FROM Medicament WHERE IdMed = 3 OR IdMed = 4;
+DELETE FROM Ordonnance WHERE NumOrd = 2;
+DELETE FROM Categorie WHERE IdCategorie = 1;
 -- ****************************************************************************
 -- La suppression d'un docteur doit entraîner la suppression de ses consultations.
 INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
