@@ -143,7 +143,7 @@ BEGIN
   ELSE
     UPDATE Ordonnance
     SET NbrMedicaments = NbrMedicaments - 1
-    WHERE DossierPatient.NumOrd = :OLD.NumOrd;
+    WHERE Ordonnance.NumOrd = :OLD.NumOrd;
   END IF;
 END;
 /
