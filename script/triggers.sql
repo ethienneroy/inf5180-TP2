@@ -16,7 +16,7 @@ SET ECHO ON
 -- ****************************************************************************
 -- Triggers pour foreign keys
 CREATE OR REPLACE TRIGGER update_Docteur_dossierPatient
-AFTER DELETE ON Docteur
+AFTER DELETE OR UPDATE OF Matricule ON Docteur
 FOR EACH ROW
 BEGIN
 	UPDATE DossierPatient
