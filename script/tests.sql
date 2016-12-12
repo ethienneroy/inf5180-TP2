@@ -196,7 +196,7 @@ SELECT NumDos, NbrConsultation FROM DossierPatient WHERE NbrConsultation = 2;
 --Il devrait y avoir 1 consultation dans le dossier patient
 DELETE FROM Consultation WHERE CodeDocteur = 1 AND NumDos = 5 AND DateC = TO_DATE('2016-12-2', 'yyyy-mm-dd');
 SELECT NumDos, NbrConsultation FROM DossierPatient WHERE NbrConsultation = 1;
---Delete tests entries
+--Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Consultation WHERE CodeDocteur = 1 AND NumDos = 5 AND DateC = TO_DATE('2016-12-23', 'yyyy-mm-dd');
     DELETE FROM Docteur WHERE Matricule = 1;
@@ -210,37 +210,60 @@ INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
 INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 'Docteur', 0, 0);
 INSERT INTO DossierPatient VALUES(5, 'nom', 'prenom', 'M', '123 456 789', TO_DATE('1999-12-31', 'yyyy-mm-dd'), TO_DATE('2016-12-11', 'yyyy-mm-dd'), 1, 0);
 INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
+
 DELETE FROM Docteur WHERE Matricule = 1;
---It should delete 0 row
-DELETE FROM Consultation WHERE CodeDocteur = 1;
-    --Delete test entries
+--Il ne doit pas y avoir de consultations
+SELECT * FROM Consultation WHERE CodeDocteur = 1;
+--Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM DossierPatient WHERE NumDos = 5;
 
 -- la modification d'un docteur doit entraîner la modification de ses consultations.
---INSERT INTO Specialite VALUES(1, 'Docteur', 'Un vrai docteur');
---INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 1, 0, 0);
---INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', 13);
---UPDATE Docteur SET Matricule = 2 WHERE Matricule = 1;
---DELETE FROM Consultation WHERE CodeDocteur = 1;
--- Clean test data
---DELETE FROM Specialite WHERE Code = 1;
---DELETE FROM Docteur WHERE Matricule = 2; 
---DELETE FROM Consultation WHERE CodeDocteur = 2;
+INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
+INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 1, 0, 0);
+INSERT INTO DossierPatient VALUES(5, 'nom', 'prenom', 'M', '123 456 789', TO_DATE('1999-12-31', 'yyyy-mm-dd'), TO_DATE('2016-12-11', 'yyyy-mm-dd'), 1, 0);
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
+
+UPDATE Docteur SET Matricule = 2 WHERE Matricule = 1;
+-- IL doit y avoir 1 consultation
+SELECT * FROM Consultation WHERE CodeDocteur = 2;
+--Delete donnees de test
+    DELETE FROM Specialite WHERE Code = 1;
+    DELETE FROM Docteur WHERE Matricule = 2; 
+    DELETE FROM Consultation WHERE CodeDocteur = 2;
+    DELETE FROM DossierPatient WHERE NumDos = 5;
+
+-- La suppression d'un patient doit entraîner la modification de ses consultations en donnant la valeur nulle au NumDos.
+INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
+INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 1, 0, 0);
+INSERT INTO DossierPatient VALUES(5, 'nom','prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), null, 0);
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
+
+DELETE FROM DossierPatient WHERE NumDos = 6;
+--Il doit y avoir null comme NumDos
+SELECT * FROM Consultation
+--Delete donnees de test
+    DELETE FROM Specialite WHERE Code = 1;
+    DELETE FROM Docteur WHERE Matricule = 1; 
+    DELETE FROM Consultation WHERE CodeDocteur = 1;    
 
 -- La modification d'un patient doit entraîner la modification de ses consultations.
---INSERT INTO DossierPatient VALUES(6, 'nom','prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
---INSERT INTO Consultation VALUES(1, 6, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', 13);
---UPDATE DossierPatient SET NumDos = 5 WHERE NumDos = 6;
---DELETE FROM Consultation WHERE NumDos = 6;
---DELETE FROM Consultation WHERE NumDos = 5;
+INSERT INTO Specialite VALUES(1, 'Elfe des bois', 'Vous ne passerez pas');
+INSERT INTO Docteur VALUES(1, 'Nom','prenom' , 1, 'Montreal', '103 A Rue Jarry H3K3F9', 1, 0, 0);
+INSERT INTO DossierPatient VALUES(5, 'nom', 'prenom', 'M', '123 456 789', TO_DATE('1999-12-31', 'yyyy-mm-dd'), TO_DATE('2016-12-11', 'yyyy-mm-dd'), 1, 0);
+INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', null);
 
--- La suppression d'un patient doit entraîner la modification de ses consultations en donnant la valeur nulle au numPat.
---INSERT INTO DossierPatient VALUES(6, 'nom','prenom' , 'M', 'GONE92062712', TO_DATE('1992-06-27', 'yyyy-mm-dd'), TO_DATE('2016-12-02', 'yyyy-mm-dd'), 1, 0);
---INSERT INTO Consultation VALUES(1, 6, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal de gorge', 13);
---DELETE FROM DossierPatient WHERE NumDos = 6;
---DELETE FROM Consultation WHERE NumDos = 6;
---DELETE FROM Consultation WHERE NumDos IS NULL
+UPDATE DossierPatient SET NumDos = 6 WHERE NumDos = 5;
+-- IL doit y avoir 1 consultation
+SELECT * FROM Consultation WHERE NumDos = 6;
+--Delete donnees de test
+    DELETE FROM Specialite WHERE Code = 1;
+    DELETE FROM Docteur WHERE Matricule = 1; 
+    DELETE FROM Consultation WHERE CodeDocteur = 1;
+    DELETE FROM DossierPatient WHERE NumDos = 6;
+
+
+
 -- La suppression ou la modification d'une ordonnance ou d’un médicament, référencés respectivement dans CONSULTATION ou ORDONNANCE, ne sont pas autorisées.
 
 
