@@ -243,7 +243,7 @@ INSERT INTO Consultation VALUES(1, 5, TO_DATE('2016-12-23', 'yyyy-mm-dd'), 'Mal 
 
 DELETE FROM DossierPatient WHERE NumDos = 6;
 --Il doit y avoir null comme NumDos
-SELECT CodeDocteur, NumDos, DateC FROM Consultation
+SELECT CodeDocteur, NumDos, DateC FROM Consultation;
 --Delete donnees de test
     DELETE FROM Specialite WHERE Code = 1;
     DELETE FROM Docteur WHERE Matricule = 1; 
